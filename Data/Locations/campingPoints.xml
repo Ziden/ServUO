@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<places>
+		<parent name="Shard Maligno">
+			<parent name="Cidades">
+				<child name="Britain" x="1592" y="1680" z="10" />
+				<child name="Magincia" x="3714" y="2235" z="20" />
+				<child name="Minoc" x="2471" y="439" z="15" />
+				<child name="Moonglow" x="4436" y="1083" z="0" />
+				<child name="Skara Brae" x="576" y="2200" z="0" />
+				<child name="Trinsic" x="1914" y=" 2717" z="20" />
+				<child name="Vesper" x="2982" y=" 818" z="0" />
+				<child name="Yew" x="548" y=" 979" z="0" />
+			</parent>
+			<parent name="Masmorras">
+				<child name="Blighted Grove" x="586" y="1643" z="-5" />
+				<child name="Covetous" x="2499" y="919" z="0"/>
+			</parent>
+		</parent>
+</places>
