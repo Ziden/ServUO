@@ -2,31 +2,33 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableTurnip : FarmableCrop
+    public class FarmableCotton : BaseFarmable
     {
         [Constructable]
-        public FarmableTurnip()
+        public FarmableCotton()
             : base(GetCropID())
         {
+            this.Name = "Planta de Algodao";
         }
 
-        public FarmableTurnip(Serial serial)
+        public FarmableCotton(Serial serial)
             : base(serial)
         {
         }
 
+        public override BasePlantable GetSeed()
+        {
+            return new CottonSeeds();
+        }
+
         public static int GetCropID()
         {
-            return Utility.Random(3169, 3);
+            return Utility.Random(3153, 4);
         }
 
         public override Item GetCropObject()
         {
-            Turnip turnip = new Turnip();
-
-            turnip.ItemID = Utility.Random(3385, 2);
-
-            return turnip;
+            return new Cotton();
         }
 
         public override int GetPickedID()

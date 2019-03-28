@@ -2,33 +2,37 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableNightShade : FarmableCrop
+    public class FarmableCabbage : BaseFarmable
     {
         [Constructable]
-        public FarmableNightShade()
+        public FarmableCabbage()
             : base(GetCropID())
         {
-            this.Name = "Planta de Nightshade";
+          
         }
 
-        public FarmableNightShade(Serial serial)
+        public FarmableCabbage(Serial serial)
             : base(serial)
         {
         }
 
         public static int GetCropID()
         {
-            return 0x18E5;
+            return 3254;
         }
 
         public override Item GetCropObject()
         {
-            return new Nightshade();
+            Cabbage cabbage = new Cabbage();
+
+            cabbage.ItemID = Utility.Random(3195, 2);
+
+            return cabbage;
         }
 
         public override int GetPickedID()
         {
-            return 0x1014;
+            return 3254;
         }
 
         public override void Serialize(GenericWriter writer)

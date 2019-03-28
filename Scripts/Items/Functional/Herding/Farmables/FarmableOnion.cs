@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableOnion : FarmableCrop
+    public class FarmableOnion : BaseFarmable
     {
         [Constructable]
         public FarmableOnion()

@@ -2,31 +2,31 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableOnion : FarmableCrop
+    public class FarmableLettuce : BaseFarmable
     {
         [Constructable]
-        public FarmableOnion()
+        public FarmableLettuce()
             : base(GetCropID())
         {
         }
 
-        public FarmableOnion(Serial serial)
+        public FarmableLettuce(Serial serial)
             : base(serial)
         {
         }
 
         public static int GetCropID()
         {
-            return 3183;
+            return 3254;
         }
 
         public override Item GetCropObject()
         {
-            Onion onion = new Onion();
+            Lettuce lettuce = new Lettuce();
 
-            onion.ItemID = Utility.Random(3181, 2);
+            lettuce.ItemID = Utility.Random(3184, 2);
 
-            return onion;
+            return lettuce;
         }
 
         public override int GetPickedID()

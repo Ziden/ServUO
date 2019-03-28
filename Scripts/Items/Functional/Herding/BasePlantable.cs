@@ -6,33 +6,6 @@ namespace Server.Items
 {
     public abstract class BasePlantable : Item
     {
-        public class GrowTimer : Timer
-        {
-
-            private BasePlantable plantable;
-
-            private int count;
-
-            public GrowTimer(BasePlantable plantable) : base(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10), 2)
-            {
-                this.plantable = plantable;
-            }
-
-            protected override void OnTick()
-            {
-                count++;
-                if (count == 1)
-                {
-                    plantable.ItemID = 3254;
-                }
-                if (count == 2)
-                {
-                    plantable.GetToPlant().MoveToWorld(plantable.Location, plantable.Map);
-                    plantable.Consume();
-
-                }
-            }
-        }
 
         public BasePlantable(int itemID)
             : base(itemID)
@@ -54,8 +27,7 @@ namespace Server.Items
         {
         }
 
-        public abstract Item GetToPlant();
-
+        public abstract BaseFarmable GetToPlant();
 
         private class PlantTarget : Target
         {
@@ -88,7 +60,7 @@ namespace Server.Items
                         from.Animate(AnimationType.Attack, 3);
                         toPlant.DropToWorld(from, target.Location);
                         toPlant.Movable = false;
-                        new GrowTimer(toPlant).Start();
+                        new GrowTimer(toPlant, from.Name).Start();
                         Effects.PlaySound(target.Location, from.Map, 0x12E);
                     }
                     else
@@ -114,7 +86,43 @@ namespace Server.Items
 
         public override void Deserialize(GenericReader reader)
         {
-            base.Deserialize(reader);
+            base.Deserialize(reader);  
+        }
+
+        public class GrowTimer : Timer
+        {
+
+            private BasePlantable plantable;
+            private string plantador;
+
+            private int count;
+
+            public GrowTimer(BasePlantable plantable, string plantador) : base(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10), 2)
+            {
+                this.plantable = plantable;
+                this.plantador = plantador;
+            }
+
+            // Crescimento da PRANTA
+            protected override void OnTick()
+            {
+                count++;
+                if (count == 1)
+                {
+                    plantable.ItemID = 3254; // matinho q ta crescendo
+                }
+                if (count == 2)
+                {
+                    // crescendo ela toda
+                    var planta = plantable.GetToPlant();
+
+                    planta.nomeQuemPlantou = plantador;
+                    planta.plantouQuando = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                    planta.MoveToWorld(plantable.Location, plantable.Map);
+                    plantable.Consume();
+
+                }
+            }
         }
     }
 }

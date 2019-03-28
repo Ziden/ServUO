@@ -2,27 +2,38 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableCotton : FarmableCrop
+    public class FarmableMandrakeroot : BaseFarmable
     {
         [Constructable]
-        public FarmableCotton()
+        public FarmableMandrakeroot()
             : base(GetCropID())
         {
+            this.Name = "Planta de Mandrake";
         }
 
-        public FarmableCotton(Serial serial)
+        public FarmableMandrakeroot(Serial serial)
             : base(serial)
         {
         }
 
         public static int GetCropID()
         {
-            return Utility.Random(3153, 4);
+            return 0x18DF;
+        }
+
+        public override int GetMaxSkill()
+        {
+            return 90;
+        }
+
+        public override int GetMinSkill()
+        {
+            return 50;
         }
 
         public override Item GetCropObject()
         {
-            return new Cotton();
+            return new MandrakeRoot();
         }
 
         public override int GetPickedID()

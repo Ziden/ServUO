@@ -2,24 +2,23 @@ using System;
 
 namespace Server.Items
 {
-    public class NightshadeSeeds : BasePlantable
+    public class CottonSeeds : BasePlantable
     {
         [Constructable]
-        public NightshadeSeeds()
+        public CottonSeeds()
             : base(0x0F24)
         {
-            this.Name = "Semente de Nightshade";
-            this.Hue = 0x30A;
+            this.Name = "Semente de Algodao";
         }
 
-        public NightshadeSeeds(Serial serial)
+        public CottonSeeds(Serial serial)
           : base(serial)
         {
         }
 
-        public override Item GetToPlant()
+        public override BaseFarmable GetToPlant()
         {
-            return new FarmableNightShade();
+            return new FarmableCotton();
         }
 
         public override void Serialize(GenericWriter writer)

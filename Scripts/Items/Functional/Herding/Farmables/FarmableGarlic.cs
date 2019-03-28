@@ -2,36 +2,43 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableCarrot : FarmableCrop
+    public class FarmableGarlic : BaseFarmable
     {
         [Constructable]
-        public FarmableCarrot()
+        public FarmableGarlic()
             : base(GetCropID())
         {
+            this.Name = "Planta de Garlic";
         }
 
-        public FarmableCarrot(Serial serial)
+        public FarmableGarlic(Serial serial)
             : base(serial)
         {
         }
 
         public static int GetCropID()
         {
-            return 3190;
+            return 0x18E1;
         }
 
         public override Item GetCropObject()
         {
-            Carrot carrot = new Carrot();
+            return new Garlic();
+        }
 
-            carrot.ItemID = Utility.Random(3191, 2);
+        public override int GetMaxSkill()
+        {
+            return 100;
+        }
 
-            return carrot;
+        public override int GetMinSkill()
+        {
+            return 70;
         }
 
         public override int GetPickedID()
         {
-            return 3254;
+            return 0x1014;
         }
 
         public override void Serialize(GenericWriter writer)

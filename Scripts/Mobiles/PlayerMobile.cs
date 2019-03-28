@@ -6084,11 +6084,11 @@ namespace Server.Mobiles
 			{
 				if (suffix.Length == 0)
 				{
-					suffix = "(Young)";
+					suffix = "(Newbie)";
 				}
 				else
 				{
-					suffix = String.Concat(suffix, " (Young)");
+					suffix = String.Concat(suffix, " (Newbie)");
 				}
 			}
 

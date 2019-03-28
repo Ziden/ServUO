@@ -2,43 +2,43 @@ using System;
 
 namespace Server.Items
 {
-    public class FarmableCabbage : FarmableCrop
+    public class FarmablePumpkin : BaseFarmable
     {
         [Constructable]
-        public FarmableCabbage()
+        public FarmablePumpkin()
             : base(GetCropID())
         {
         }
 
-        public FarmableCabbage(Serial serial)
+        public FarmablePumpkin(Serial serial)
             : base(serial)
         {
         }
 
         public static int GetCropID()
         {
-            return 3254;
+            return Utility.Random(3166, 3);
         }
 
         public override Item GetCropObject()
         {
-            Cabbage cabbage = new Cabbage();
+            Pumpkin pumpkin = new Pumpkin();
 
-            cabbage.ItemID = Utility.Random(3195, 2);
+            pumpkin.ItemID = Utility.Random(3178, 3);
 
-            return cabbage;
+            return pumpkin;
         }
 
         public override int GetPickedID()
         {
-            return 3254;
+            return Utility.Random(3166, 3);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

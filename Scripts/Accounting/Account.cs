@@ -1553,7 +1553,7 @@ namespace Server.Accounting
 			var hours = Math.Max((int)ts.TotalHours, 0);
 
 			m.SendAsciiMessage(
-				"You will enjoy the benefits and relatively safe status of a young player for {0} more hour{1}.",
+				"Voce ainda eh newbie por {0} hora{1}.",
 				hours,
 				hours != 1 ? "s" : "");
 		}
