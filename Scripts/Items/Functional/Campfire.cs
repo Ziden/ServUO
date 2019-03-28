@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
 
@@ -19,6 +20,9 @@ namespace Server.Items
         private readonly Timer m_Timer;
         private readonly DateTime m_Created;
         private readonly ArrayList m_Entries;
+        public string nomeDeQUemAscendeu = null;
+        public bool Safe = false;
+
         public Campfire()
             : base(0xDE3)
         {
@@ -95,6 +99,21 @@ namespace Server.Items
             entry.Fire.m_Entries.Remove(entry);
         }
 
+        public override void OnDoubleClick(Mobile from)
+        {
+            if(!Safe)
+            {
+                from.SendMessage("Aguarde o acampamento ficar seguro");
+                return;
+            }
+            if (from.Skills[SkillName.Camping].Value < 50)
+            {
+                from.SendMessage("Voce precisa de pelo menos 50 camping para usar acampamento");
+                return;
+            }
+            GoGump.DisplayToCampfire(from);
+        }
+
         public override void OnAfterDelete()
         {
             if (this.m_Timer != null)
@@ -143,7 +162,8 @@ namespace Server.Items
                 else if (!entry.Safe && now - entry.Start >= TimeSpan.FromSeconds(30.0))
                 {
                     entry.Safe = true;
-                    entry.Player.SendLocalizedMessage(500621); // The camp is now secure.
+                    this.Safe = true;
+                    entry.Player.SendMessage("O Acampamento esta seguro");
                 }
             }
 
@@ -160,7 +180,7 @@ namespace Server.Items
                     m_Table[pm] = entry;
                     this.m_Entries.Add(entry);
 
-                    pm.SendLocalizedMessage(500620); // You feel it would take a few moments to secure your camp.
+                    pm.SendMessage("Em alguns momentos seu acampamento ficara seguro");
                 }
             }
 

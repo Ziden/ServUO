@@ -202,7 +202,7 @@ namespace Server.Engines.Craft
             {
                 return 1048146; // If you have a tool equipped, you must use that tool.
             }
-
+        
             else if (!tool.CheckAccessible(from, ref num))
             {
                 return num; // The tool must be on your person to use.
@@ -230,6 +230,7 @@ namespace Server.Engines.Craft
             //if ( from.Body.Type == BodyType.Human && !from.Mounted )
             //	from.Animate( 9, 5, 1, true, false, 0 );
             //new InternalTimer( from ).Start();
+            from.Animate(AnimationType.Attack, 3);
             from.PlaySound(0x2A);
         }
 
@@ -247,6 +248,7 @@ namespace Server.Engines.Craft
             protected override void OnTick()
             {
                 m_From.PlaySound(0x2A);
+                m_From.Animate(AnimationType.Attack, 3);
             }
         }
 

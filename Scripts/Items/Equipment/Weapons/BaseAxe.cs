@@ -91,7 +91,17 @@ namespace Server.Items
             if (!(HarvestSystem is Mining))
                 from.SendLocalizedMessage(1010018); // What do you want to use this item on?
 
-            HarvestSystem.BeginHarvesting(from, this);
+            if (from.FindItemOnLayer(Layer.OneHanded) == this ||
+                   from.FindItemOnLayer(Layer.TwoHanded) == this)
+            {
+                HarvestSystem.BeginHarvesting(from, this);
+            }
+            else
+            {
+                from.ClearHands();
+                from.EquipItem(this);
+                HarvestSystem.BeginHarvesting(from, this);
+            }
         }
 
         public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)

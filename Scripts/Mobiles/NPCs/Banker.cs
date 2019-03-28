@@ -313,13 +313,8 @@ namespace Server.Mobiles
 
 	    public static void HandleSpeech(Mobile vendor, SpeechEventArgs e)
 	    {
-            if (!e.Handled && e.Mobile.InRange(vendor, 12))
+			if (!e.Handled && e.Mobile.InRange(vendor, 12))
 			{
-                if (e.Mobile.Map.Rules != MapRules.FeluccaRules && vendor is BaseVendor && !((BaseVendor)vendor).CheckVendorAccess(e.Mobile))
-                {
-                    return;
-                }
-
 				foreach (var keyword in e.Keywords)
 				{
 					switch (keyword)
@@ -493,11 +488,7 @@ namespace Server.Mobiles
         {
             if (from.Alive)
             {
-                var entry = new OpenBankEntry(this);
-
-                entry.Enabled = from.Map.Rules == MapRules.FeluccaRules || CheckVendorAccess(from);
-
-                list.Add(entry);
+                list.Add(new OpenBankEntry(this));
             }
 
             base.AddCustomContextEntries(from, list);

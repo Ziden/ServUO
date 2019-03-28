@@ -104,6 +104,7 @@
     <Compile Include="Commands\DecorateSA.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\Music.cs" />
     <Compile Include="Commands\Docs.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -579,6 +580,13 @@
     <Compile Include="Items\Decorative\FlamingScarecrow.cs" />
     <Compile Include="Items\Decorative\SilverSaplingReplica.cs" />
     <Compile Include="Items\Decorative\ValentineBear.cs" />
+    <Compile Include="Items\Functional\Farmables\FarmableNightShade.cs" />
+    <Compile Include="Items\Functional\Farmables\FarmableGarlic.cs" />
+    <Compile Include="Items\Functional\Farmables\FarmableMandrakeroot.cs" />
+    <Compile Include="Items\Functional\Farmables\FarmableGinseng.cs" />
+    <Compile Include="Items\Functional\Plantable\BasePlantable.cs" />
+    <Compile Include="Items\Functional\Plantable\NightshadeSeeds.cs" />
+    <Compile Include="Items\Functional\Plantable\CottonSeeds.cs" />
     <Compile Include="Items\Functional\SerpentsJawbone.cs" />
     <Compile Include="Items\Internal\ItemSockets\Caddellite.cs" />
     <Compile Include="Items\Internal\ItemSockets\EnchantedHotItem.cs" />
@@ -4964,34 +4972,34 @@
     <Compile Include="Items\Internal\Hair.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableCabbage.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableCabbage.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableCarrot.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableCarrot.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableCotton.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableCotton.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableCrop.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableCrop.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableFlax.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableFlax.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableLettuce.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableLettuce.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableOnion.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableOnion.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmablePumpkin.cs">
+    <Compile Include="Items\Functional\Farmables\FarmablePumpkin.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableTurnip.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableTurnip.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\FarmableWheat.cs">
+    <Compile Include="Items\Functional\Farmables\FarmableWheat.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Items\Consumables\Asian.cs">
@@ -12109,6 +12117,12 @@
     <Compile Include="VendorInfo\SBWeaver.cs" />
     <Compile Include="VendorInfo\SBWoodenShields.cs" />
     <Compile Include="VendorInfo\VendorInventory.cs" />
+    <Compile Include="ZidenRegions\CustomRegion.cs" />
+    <Compile Include="ZidenRegions\RegionBounds.cs" />
+    <Compile Include="ZidenRegions\RegionControl.cs" />
+    <Compile Include="ZidenRegions\RegionControlGump.cs" />
+    <Compile Include="ZidenRegions\RemoveAreaGump.cs" />
+    <Compile Include="ZidenRegions\RestrictGump.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\New Magincia\ReadMe.txt" />
@@ -12127,6 +12141,7 @@
       <Name>Ultima</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

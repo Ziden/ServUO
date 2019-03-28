@@ -7810,7 +7810,7 @@ namespace Server.Mobiles
         {
             long tc = Core.TickCount;
 
-            if (HasAura && tc >= m_NextAura)
+            if (Combatant != null && HasAura && tc >= m_NextAura)
             {
                 AuraDamage();
                 m_NextAura = tc + (int)AuraInterval.TotalMilliseconds;

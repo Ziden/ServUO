@@ -81,13 +81,13 @@ namespace Server.Engines.Harvest
             oreAndStone.EffectDelay = TimeSpan.FromSeconds(1.6);
             oreAndStone.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
 
-            oreAndStone.NoResourcesMessage = 503040; // There is no metal here to mine.
-            oreAndStone.DoubleHarvestMessage = 503042; // Someone has gotten to the metal before you.
-            oreAndStone.TimedOutOfRangeMessage = 503041; // You have moved too far away to continue mining.
-            oreAndStone.OutOfRangeMessage = 500446; // That is too far away.
-            oreAndStone.FailMessage = 503043; // You loosen some rocks but fail to find any useable ore.
-            oreAndStone.PackFullMessage = 1010481; // Your backpack is full, so the ore you mined is lost.
-            oreAndStone.ToolBrokeMessage = 1044038; // You have worn out your tool!
+            oreAndStone.NoResourcesMessage = "Nao tem minerio aqui"; // There is no metal here to mine.
+            oreAndStone.DoubleHarvestMessage = "Alguem pegou seu minerio"; // Someone has gotten to the metal before you.
+            oreAndStone.TimedOutOfRangeMessage = "Voce esta muito longe do minerio"; // You have moved too far away to continue mining.
+            oreAndStone.OutOfRangeMessage = "Isto esta muito longe"; // That is too far away.
+            oreAndStone.FailMessage = "Voce nao conseguiu encontrar minerio"; // You loosen some rocks but fail to find any useable ore.
+            oreAndStone.PackFullMessage = "Sua mochila esta cheia"; // Your backpack is full, so the ore you mined is lost.
+            oreAndStone.ToolBrokeMessage = "Sua ferramenta quebrou !"; // You have worn out your tool!
 
             res = new HarvestResource[]
             {
@@ -175,13 +175,14 @@ namespace Server.Engines.Harvest
             sand.EffectDelay = TimeSpan.FromSeconds(1.6);
             sand.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
 
-            sand.NoResourcesMessage = 1044629; // There is no sand here to mine.
-            sand.DoubleHarvestMessage = 1044629; // There is no sand here to mine.
-            sand.TimedOutOfRangeMessage = 503041; // You have moved too far away to continue mining.
-            sand.OutOfRangeMessage = 500446; // That is too far away.
-            sand.FailMessage = 1044630; // You dig for a while but fail to find any of sufficient quality for glassblowing.
-            sand.PackFullMessage = 1044632; // Your backpack can't hold the sand, and it is lost!
-            sand.ToolBrokeMessage = 1044038; // You have worn out your tool!
+            oreAndStone.NoResourcesMessage = "Nao tem areia aqui"; // There is no metal here to mine.
+            oreAndStone.DoubleHarvestMessage = "Alguem pegou sua areia"; // Someone has gotten to the metal before you.
+            oreAndStone.TimedOutOfRangeMessage = "Voce esta muito longe do minerio"; // You have moved too far away to continue mining.
+            oreAndStone.OutOfRangeMessage = "Isto esta muito longe"; // That is too far away.
+            oreAndStone.FailMessage = "Voce nao conseguiu encontrar minerio"; // You loosen some rocks but fail to find any useable ore.
+            oreAndStone.PackFullMessage = "Sua mochila esta cheia"; // Your backpack is full, so the ore you mined is lost.
+            oreAndStone.ToolBrokeMessage = "Sua ferramenta quebrou !"; // You have worn out your tool!
+
 
             res = new HarvestResource[]
             {
@@ -296,11 +297,6 @@ namespace Server.Engines.Harvest
                 this.OnBadHarvestTarget(from, tool, toHarvest);
                 return false;
             }
-            else if (from.Mounted)
-            {
-                from.SendLocalizedMessage(501864); // You can't mine while riding.
-                return false;
-            }
             else if (from.IsBodyMod && !from.Body.IsHuman)
             {
                 from.SendLocalizedMessage(501865); // You can't mine while polymorphed.
@@ -392,6 +388,7 @@ namespace Server.Engines.Harvest
                     }
                 }
             }
+            //base.OnHarvestStarted(from, tool, def, resource);
         }
 
         #region High Seas
@@ -483,7 +480,8 @@ namespace Server.Engines.Harvest
             if (!base.BeginHarvesting(from, tool))
                 return false;
 
-            from.SendLocalizedMessage(503033); // Where do you wish to dig?
+            //from.SendLocalizedMessage(503033); // Where do you wish to dig?
+            from.SendMessage("Onde voce gostaria de minerar ?");
             return true;
         }
 
@@ -491,19 +489,21 @@ namespace Server.Engines.Harvest
         {
             base.OnHarvestStarted(from, tool, def, toHarvest);
 
-            if (Core.ML)
-                from.RevealingAction();
+            //if (Core.ML)
+            from.RevealingAction();
         }
 
         public override void OnBadHarvestTarget(Mobile from, Item tool, object toHarvest)
         {
             if (toHarvest is LandTarget)
             {
-                from.SendLocalizedMessage(501862); // You can't mine there.
+                //from.SendLocalizedMessage(501862); // You can't mine there.
+                from.SendMessage("Voce nao pode minerar ali.");
             }            
             else if (!(toHarvest is LandTarget))
             {
-                from.SendLocalizedMessage(501863); // You can't mine that.
+                //from.SendLocalizedMessage(501863); // You can't mine that.
+                from.SendMessage("Voce nao pode minerar isto.");
             }
             else if (from.Mounted || from.Flying)
             {

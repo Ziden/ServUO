@@ -148,7 +148,18 @@ namespace Server.Items
         public override void OnDoubleClick(Mobile from)
         {
             if (IsChildOf(from.Backpack) || Parent == from)
-                HarvestSystem.BeginHarvesting(from, this);
+            {
+                if(from.FindItemOnLayer(Layer.OneHanded).Serial == this.Serial ||
+                    from.FindItemOnLayer(Layer.TwoHanded).Serial == this.Serial)
+                {
+                    HarvestSystem.BeginHarvesting(from, this);
+                } else
+                {
+                    from.ClearHands();
+                    from.EquipItem(this);
+                    HarvestSystem.BeginHarvesting(from, this);
+                }  
+            }
             else
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
         }

@@ -472,7 +472,6 @@ namespace Server.Items
             {
                 User.SendLocalizedMessage(500015); // You do not have that spell!
             }
-
             Atlas.Openers.Remove(User);
         }
 

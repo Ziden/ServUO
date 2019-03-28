@@ -59,11 +59,11 @@ namespace Server.Items
 
             if (fireLocation == Point3D.Zero)
             {
-                from.SendLocalizedMessage(501695); // There is not a spot nearby to place your campfire.
+                from.SendMessage("Voce ascendeu a fogueira"); // There is not a spot nearby to place your campfire.
             }
             else if (!from.CheckSkill(SkillName.Camping, 0.0, 100.0))
             {
-                from.SendLocalizedMessage(501696); // You fail to ignite the campfire.
+                from.SendMessage("Voce nao conseguir ascender a fogueira"); // You fail to ignite the campfire.
             }
             else
             {
@@ -72,7 +72,9 @@ namespace Server.Items
                 if (!Deleted && Parent == null)
                     from.PlaceInBackpack(this);
 
-                new Campfire().MoveToWorld(fireLocation, from.Map);
+                var campfire = new Campfire();
+                campfire.nomeDeQUemAscendeu = from.Name;
+                campfire.MoveToWorld(fireLocation, from.Map);
             }
         }
 

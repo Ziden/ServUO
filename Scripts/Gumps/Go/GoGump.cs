@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Server.Network;
 
 namespace Server.Gumps
@@ -10,6 +11,8 @@ namespace Server.Gumps
         public static readonly LocationTree Ilshenar = new LocationTree("ilshenar.xml", Map.Ilshenar);
         public static readonly LocationTree Malas = new LocationTree("malas.xml", Map.Malas);
         public static readonly LocationTree Tokuno = new LocationTree("tokuno.xml", Map.Tokuno);
+
+        public static readonly LocationTree CampingPoints = new LocationTree("campingPoints.xml", Map.Felucca);
         #region SA
         public static readonly LocationTree TerMur = new LocationTree("termur.xml", Map.TerMur);
         #endregion
@@ -96,14 +99,32 @@ namespace Server.Gumps
                 from.SendGump(new GoGump(0, from, tree, branch));
         }
 
+        public static void DisplayToCampfire(Mobile from)
+        {
+            from.SendMessage("DEBUG: Colocar locs do novo mapa");
+
+            ParentNode branch = null;
+            CampingPoints.LastBranch.TryGetValue(from, out branch);
+
+            if (branch == null)
+                branch = CampingPoints.Root;
+
+            if (branch != null)
+                from.SendGump(new GoGump(0, from, CampingPoints, branch, true));
+        }
+
         private readonly LocationTree m_Tree;
         private readonly ParentNode m_Node;
         private readonly int m_Page;
+        private bool camp = false;
 
-        private GoGump(int page, Mobile from, LocationTree tree, ParentNode node)
+
+        private GoGump(int page, Mobile from, LocationTree tree, ParentNode node, bool campfire = false)
             : base(50, 50)
         {
             from.CloseGump(typeof(GoGump));
+
+            this.camp = campfire;
 
             tree.LastBranch[from] = node;
 
@@ -207,7 +228,7 @@ namespace Server.Gumps
         {
             Mobile from = state.Mobile;
 
-            switch ( info.ButtonID )
+            switch (info.ButtonID)
             {
                 case 1:
                     {
@@ -233,7 +254,6 @@ namespace Server.Gumps
                 default:
                     {
                         int index = info.ButtonID - 4;
-
                         if (index >= 0 && index < this.m_Node.Children.Length)
                         {
                             object o = this.m_Node.Children[index];
@@ -245,13 +265,43 @@ namespace Server.Gumps
                             else
                             {
                                 ChildNode n = (ChildNode)o;
+                                if (camp)
+                                {
+                                    var timer = new CampingTimer(from, this.m_Tree, n.Location);
+                                    timer.Start();
+                                }
+                                else
+                                {
+                                    from.MoveToWorld(n.Location, this.m_Tree.Map);
+                                }
 
-                                from.MoveToWorld(n.Location, this.m_Tree.Map);
+
                             }
                         }
 
                         break;
                     }
+            }
+        }
+
+        public class CampingTimer : Timer
+        {
+            private Mobile player;
+            LocationTree locTree;
+            Point3D point;
+            public CampingTimer(Mobile player, LocationTree locTree, Point3D point)
+                : base(TimeSpan.FromSeconds(Core.AOS ? 3.0 : 2.5))
+            {
+                this.locTree = locTree;
+                this.point = point;
+                this.player = player;
+                Priority = TimerPriority.FiftyMS;
+            }
+
+            protected override void OnTick()
+            {
+                player.MoveToWorld(point, locTree.Map);
+                player.SendMessage("Voce chegou ao seu destino");
             }
         }
     }

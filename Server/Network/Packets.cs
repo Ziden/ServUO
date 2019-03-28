@@ -3202,7 +3202,6 @@ m_Stream.Write( (int) renderMode );
 			{
 				p = new PlayMusic(name);
 			}
-
 			return p;
 		}
 
@@ -3584,7 +3583,8 @@ m_Stream.Write( (int) renderMode );
 			}
 			else
 			{
-				type = Core.AOS ? 4 : 3;
+                //type = Core.AOS ? 4 : 3;
+                type = 4;
 				EnsureCapacity(88);
 			}
 
@@ -3695,7 +3695,8 @@ m_Stream.Write( (int) renderMode );
             }
             else
             {
-                type = Core.AOS ? 4 : 3;
+                // type = Core.AOS ? 4 : 3;
+                type = 4;
                 EnsureCapacity(88);
             }
 

@@ -89,9 +89,9 @@ namespace Server.Engines.Harvest
 			else
 			{
 				// If we got here and we're lumberjacking then we didn't target something that can be done from the pack
-				if (m_System is Lumberjacking && m_Tool.Parent != from)
+				if ((m_System is Lumberjacking || m_System is Mining) && m_Tool.Parent != from)
 				{
-					from.SendLocalizedMessage(500487); // The axe must be equipped for any serious wood chopping.
+					from.SendMessage("Voce precisa equipar a ferramenta"); 
 					return;
 				}
 				m_System.StartHarvesting(from, m_Tool, targeted);

@@ -400,11 +400,12 @@
       <rect x="2567" y="585" width="61" height="61" />
       <rect x="2499" y="627" width="68" height="63" />
       <go x="2466" y="544" z="0" />
-      <music name="Minoc" />
+      <music name="Sailing" />
       <region>
         <rect x="2457" y="397" width="40" height="8" />
         <rect x="2465" y="405" width="8" height="8" />
         <rect x="2481" y="405" width="8" height="8" />
+        <music name="Sailing" />
         <logoutDelay active="false" />
       </region>
     </region>

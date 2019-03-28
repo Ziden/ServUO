@@ -15,7 +15,7 @@ using Server.Engines.VoidPool;
         public CoraTheSorceress() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.1)
         {
             Body = 0x191;
-            Name = "Cora";
+            Name = "cora";
             Title = "the sorceress";
 
             HairItemID = 0x2045;
@@ -61,18 +61,6 @@ using Server.Engines.VoidPool;
         public override bool ClickTitle { get { return false; } }
         public override bool ShowFameTitle { get { return false; } }
 
-        public override bool HasAura { get { return true; } }
-        public override int AuraRange { get { return 3; } }
-        public override int AuraBaseDamage { get { return 0; } }
-        public override int AuraFireDamage { get { return 0; } }
-
-        public override void AuraEffect(Mobile m)
-        {
-            int mana = Utility.Random(1, m.Mana);
-            m.Mana -= mana;
-            m.SendLocalizedMessage(1153114, mana.ToString()); // Cora drains ~1_VAL~ points of your mana!
-        }
-
         public override bool TeleportsTo { get { return true; } }
         public override TimeSpan TeleportDuration { get { return TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60)); } }
         public override double TeleportProb { get { return 1.0; } }
@@ -97,14 +85,15 @@ using Server.Engines.VoidPool;
         {
             base.OnThink();
 
+            if (Combatant == null)
+                return;
+
             if (NextManaDrain < DateTime.UtcNow)
                 DoManaDrain();
         }
 
         public void DoManaDrain()
         {
-            Animate(AnimationType.Spell, 1);
-
             DoEffects(Direction.North);
             DoEffects(Direction.West);
             DoEffects(Direction.South);
@@ -253,7 +242,7 @@ using Server.Engines.VoidPool;
                     }
                     else
                     {
-                        m.FixedParticles(0x3779, 10, 25, 5002, EffectLayer.Head);
+                        m.SendLocalizedMessage(1153114, m.Mana.ToString()); // Cora drains ~1_VAL~ points of your mana!
                         m.Mana = 0;
                     }
                 }

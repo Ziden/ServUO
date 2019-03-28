@@ -802,7 +802,7 @@ namespace Server.Engines.VendorSearching
             if (r.GetLogoutDelay(m) == TimeSpan.Zero)
                 return true;
 
-            return r is GuardedRegion && !((GuardedRegion)r).Disabled || r is HouseRegion && ((HouseRegion)r).House.IsFriend(m);
+            return r is GuardedRegion && !((GuardedRegion)r).Disabled;
         }
 
         private static bool IsSearchableContainer(Type type)
@@ -1008,7 +1008,7 @@ namespace Server.Engines.VendorSearching
 
         public bool IsEmpty
         {
-            get { return Details.Count == 0 && !EntryPrice && String.IsNullOrEmpty(SearchName) && SearchType == Layer.Invalid; }
+            get { return Details.Count == 0 && MinPrice == 0 && MaxPrice == 175000000 && String.IsNullOrEmpty(SearchName) && SearchType == Layer.Invalid; }
         }
 
         public SearchCriteria(GenericReader reader)
