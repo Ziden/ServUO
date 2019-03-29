@@ -1,4 +1,4 @@
-﻿#region References
+#region References
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -177,7 +177,7 @@ namespace Server
 
 				foreach (var e in _Entries.Values)
 				{
-					Console.WriteLine(e);
+					//Console.WriteLine(e);
 				}
 
 				Console.WriteLine();
