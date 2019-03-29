@@ -77,6 +77,9 @@ namespace Server.Spells.Fifth
                     else
                         duration = TimeSpan.FromSeconds(4.0 * this.Caster.Skills[SkillName.Magery].Value);
 
+                    var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                    duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
+
                     SpellHelper.Summon(creature, this.Caster, 0x215, duration, false, false);
                 }
                 catch

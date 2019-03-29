@@ -65,6 +65,9 @@ namespace Server.Spells.Eighth
                 else
                     duration = TimeSpan.FromSeconds(Utility.Random(80, 40));
 
+                var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
+
                 BaseCreature.Summon(new EnergyVortex(true), false, this.Caster, new Point3D(p), 0x212, duration);
             }
 

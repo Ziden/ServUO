@@ -159,12 +159,12 @@ namespace Server.Spells
         {
             return CheckMulti(p, map, true, 0);
         }
-		
+
         public static bool CheckMulti(Point3D p, Map map, bool houses)
         {
             return CheckMulti(p, map, houses, 0);
         }
-		
+
         public static bool CheckMulti(Point3D p, Map map, bool houses, int housingrange)
         {
             if (map == null || map == Map.Internal)
@@ -188,7 +188,7 @@ namespace Server.Spells
                     return true;
                 }
             }
-			
+
             return false;
         }
 
@@ -265,7 +265,7 @@ namespace Server.Spells
             {
                 Type t = item.GetType();
 
-                if(t.IsDefined(typeof(DispellableFieldAttribute), false) || t.IsDefined(typeof(DispellableFieldAttribute), true))
+                if (t.IsDefined(typeof(DispellableFieldAttribute), false) || t.IsDefined(typeof(DispellableFieldAttribute), true))
                 {
                     eable.Free();
                     return false;
@@ -297,17 +297,17 @@ namespace Server.Spells
 
             return true;
         }
-		
+
         public static bool CanRevealCaster(Mobile m)
         {
             if (m is BaseCreature)
             {
                 BaseCreature c = (BaseCreature)m;
-						
+
                 if (!c.Controlled)
                     return true;
             }
-			
+
             return false;
         }
 
@@ -329,13 +329,13 @@ namespace Server.Spells
             }
         }
 
-		protected static void RemoveStatOffsetCallback(object state)
-		{
-			if (!(state is Mobile))
-				return;
-			// This call has the side-effect of updating all stats
-			((Mobile)state).CheckStatTimers();
-		}			
+        protected static void RemoveStatOffsetCallback(object state)
+        {
+            if (!(state is Mobile))
+                return;
+            // This call has the side-effect of updating all stats
+            ((Mobile)state).CheckStatTimers();
+        }
 
         public static bool AddStatOffset(Mobile m, StatType type, int offset, TimeSpan duration)
         {
@@ -358,11 +358,11 @@ namespace Server.Spells
             string name = String.Format("[Magic] {0} Buff", type);
 
             StatMod mod = target.GetStatMod(name);
-			if (mod != null)
-				offset = Math.Max(mod.Offset, offset);
+            if (mod != null)
+                offset = Math.Max(mod.Offset, offset);
 
             target.AddStatMod(new StatMod(type, name, offset, duration));
-			Timer.DelayCall(duration, RemoveStatOffsetCallback, target);
+            Timer.DelayCall(duration, RemoveStatOffsetCallback, target);
 
             return true;
         }
@@ -398,13 +398,13 @@ namespace Server.Spells
 
             StatMod mod = target.GetStatMod(name);
 
-			if (mod != null)
-				offset = Math.Max(mod.Offset, offset);
+            if (mod != null)
+                offset = Math.Max(mod.Offset, offset);
 
-			offset *= -1;
+            offset *= -1;
 
             target.AddStatMod(new StatMod(type, name, offset, TimeSpan.Zero));
-			return true;
+            return true;
         }
 
         public static TimeSpan GetDuration(Mobile caster, Mobile target)
@@ -466,7 +466,7 @@ namespace Server.Spells
 
                 double percent = GetOffsetScalar(caster, target, curse);
 
-                switch( type )
+                switch (type)
                 {
                     case StatType.Str:
                         return (int)(target.RawStr * percent);
@@ -628,7 +628,7 @@ namespace Server.Spells
         }
 
         public static IEnumerable<IDamageable> AcquireIndirectTargets(Mobile caster, IPoint3D p, Map map, int range)
-        {  
+        {
             if (map == null)
             {
                 yield break;
@@ -671,6 +671,15 @@ namespace Server.Spells
             1, 1
         };
 
+        public static void ScaleSkills(BaseCreature creature, double spiritSpeak)
+        {
+            var scale = spiritSpeak / 75;
+            foreach( var skill in creature.Skills )
+            {
+                creature.SetSkill(skill.SkillName, (int)(skill.Fixed * scale));
+            }
+        }
+
         public static void Summon(BaseCreature creature, Mobile caster, int sound, TimeSpan duration, bool scaleDuration, bool scaleStats, bool summoned = true, SkillName useSkill = SkillName.Magery)
         {
             Map map = caster.Map;
@@ -679,21 +688,21 @@ namespace Server.Spells
                 return;
 
             double scale = 1.0 + ((caster.Skills[useSkill].Value - 100.0) / 200.0);
+            scale += caster.Skills[SkillName.SpiritSpeak].Value / 150;
 
             if (scaleDuration)
                 duration = TimeSpan.FromSeconds(duration.TotalSeconds * scale);
 
-            if (scaleStats)
-            {
-                creature.RawStr = (int)(creature.RawStr * scale);
-                creature.Hits = creature.HitsMax;
+            creature.RawStr = (int)(creature.RawStr * scale);
+            creature.Hits = creature.HitsMax;
 
-                creature.RawDex = (int)(creature.RawDex * scale);
-                creature.Stam = creature.StamMax;
+            creature.RawDex = (int)(creature.RawDex * scale);
+            creature.Stam = creature.StamMax;
 
-                creature.RawInt = (int)(creature.RawInt * scale);
-                creature.Mana = creature.ManaMax;
-            }
+            creature.RawInt = (int)(creature.RawInt * scale);
+            creature.Mana = creature.ManaMax;
+
+            SpellHelper.ScaleSkills(creature, caster.Skills[SkillName.SpiritSpeak].Value);
 
             Point3D p = new Point3D(caster);
 
@@ -817,13 +826,13 @@ namespace Server.Spells
         private static readonly bool[,] m_Rules = new bool[,]
         {
 					/*T2A(Fel),	Khaldun,	Ilshenar,	Wind(Tram),	Wind(Fel),	Dungeons(Fel),	Solen(Tram),	Solen(Fel),	CrystalCave(Malas),	Gauntlet(Malas),	Gauntlet(Ferry),	SafeZone,	Stronghold,	ChampionSpawn,	Dungeons(Tokuno[Malas]),	LampRoom(Doom),	GuardianRoom(Doom),	Heartwood,	MLDungeons, SA Dungeons		Tomb of Kings	Maze of Death	SA Entrance,    Eodon*/
-/* Recall From */	{ false,	false,		true,		true,		false,		false,			true,			false,		false,				false,				false,				true,		true,		false,			true,						false,			false,				false,		false,      true,           true,           false,          false,          true} ,
-/* Recall To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Gate From */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Gate To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Mark In */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Tele From */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				true,				true,		false,		true,			true,						true,			true,				false,		true,       true,           false,          false,          false,          true },
-/* Tele To */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				false,				false,		false, 		true,			true,						true,			true,				false,		false,      true,           false,          false,          false,          true },
+/* Recall From */	{ false,    false,      true,       true,       false,      false,          true,           false,      false,              false,              false,              true,       true,       false,          true,                       false,          false,              false,      false,      true,           true,           false,          false,          true} ,
+/* Recall To */		{ false,    false,      false,      false,      false,      false,          false,          false,      false,              false,              false,              false,      false,      false,          false,                      false,          false,              false,      false,      false,          false,          false,          false,          false },
+/* Gate From */		{ false,    false,      false,      false,      false,      false,          false,          false,      false,              false,              false,              false,      false,      false,          false,                      false,          false,              false,      false,      false,          false,          false,          false,          false },
+/* Gate To */		{ false,    false,      false,      false,      false,      false,          false,          false,      false,              false,              false,              false,      false,      false,          false,                      false,          false,              false,      false,      false,          false,          false,          false,          false },
+/* Mark In */		{ false,    false,      false,      false,      false,      false,          false,          false,      false,              false,              false,              false,      false,      false,          false,                      false,          false,              false,      false,      false,          false,          false,          false,          false },
+/* Tele From */		{ true,     true,       true,       true,       true,       true,           true,           true,       false,              true,               true,               true,       false,      true,           true,                       true,           true,               false,      true,       true,           false,          false,          false,          true },
+/* Tele To */		{ true,     true,       true,       true,       true,       true,           true,           true,       false,              true,               false,              false,      false,      true,           true,                       true,           true,               false,      false,      true,           false,          false,          false,          true },
         };
 
         public static void SendInvalidMessage(Mobile caster, TravelCheckType type)
@@ -861,17 +870,17 @@ namespace Server.Spells
 
             if (caster != null && caster.IsPlayer())
             {
-				// Jail region
-				if (caster.Region.IsPartOf<Regions.Jail>())
-				{
-					caster.SendLocalizedMessage(1114345); // You'll need a better jailbreak plan than that!
-					return false;
-				}
-				else if(caster.Region is Regions.GreenAcres)
-				{
-					caster.SendLocalizedMessage(502360); // You cannot teleport into that area.
-					return false;
-				}
+                // Jail region
+                if (caster.Region.IsPartOf<Regions.Jail>())
+                {
+                    caster.SendLocalizedMessage(1114345); // You'll need a better jailbreak plan than that!
+                    return false;
+                }
+                else if (caster.Region is Regions.GreenAcres)
+                {
+                    caster.SendLocalizedMessage(502360); // You cannot teleport into that area.
+                    return false;
+                }
             }
 
             // Always allow monsters to teleport
@@ -1162,7 +1171,7 @@ namespace Server.Spells
 
             if (map == null)
                 return false;
-            
+
             GuardedRegion reg = (GuardedRegion)Region.Find(loc, map).GetRegion(typeof(GuardedRegion));
 
             return (reg != null && !reg.IsDisabled());
@@ -1431,7 +1440,7 @@ namespace Server.Spells
 
                 int damageGiven = AOS.Damage(damageable, from, iDamage, phys, fire, cold, pois, nrgy, chaos, direct, dtype);
 
-                if(target != null)
+                if (target != null)
                     Spells.Mysticism.SpellPlagueSpell.OnMobileDamaged(target);
 
                 if (target != null && target.DFA != DFAlgorithm.Standard)
@@ -1441,7 +1450,7 @@ namespace Server.Spells
 
                 NegativeAttributes.OnCombatAction(from);
 
-                if(from != target)
+                if (from != target)
                     NegativeAttributes.OnCombatAction(target);
             }
             else
@@ -1703,11 +1712,11 @@ namespace Server.Spells
                 caster.SendLocalizedMessage(1061091); // You cannot cast that spell in this form.
                 return false;
             }
-			else if (caster.Flying && !(spell is VampiricEmbraceSpell))
-			{
-				caster.SendLocalizedMessage(1112567); // You are flying.
-				return false;
-			}
+            else if (caster.Flying && !(spell is VampiricEmbraceSpell))
+            {
+                caster.SendLocalizedMessage(1112567); // You are flying.
+                return false;
+            }
 
             return true;
         }

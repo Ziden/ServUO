@@ -51,6 +51,7 @@ namespace Server.Spells.Seventh
 
                 if (Core.AOS)
                 {
+
                     toDrain = (int)(this.GetDamageSkill(this.Caster) - this.GetResistSkill(m));
 
                     if (!m.Player)

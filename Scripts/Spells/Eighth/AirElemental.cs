@@ -44,6 +44,8 @@ namespace Server.Spells.Eighth
             if (this.CheckSequence())
             {
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
+                var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
 
                 if (Core.AOS)
                     SpellHelper.Summon(new SummonedAirElemental(), this.Caster, 0x217, duration, false, false);

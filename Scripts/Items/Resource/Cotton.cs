@@ -16,8 +16,9 @@ namespace Server.Items
             : base(0xDF9)
         {
             this.Stackable = true;
-            this.Weight = 4.0;
+            this.Weight = 1.0;
             this.Amount = amount;
+            this.Name = "Bolas de Algodao Fofinhas";
         }
 
         public Cotton(Serial serial)
@@ -32,9 +33,8 @@ namespace Server.Items
         {
             Item item = new SpoolOfThread(6);
             item.Hue = hue;
-
             from.AddToBackpack(item);
-            from.SendLocalizedMessage(1010577); // You put the spools of thread in your backpack.
+            from.SendMessage("Voce colocou linho sua mochila");
         }
 
         public override void Serialize(GenericWriter writer)
@@ -65,12 +65,8 @@ namespace Server.Items
         {
             if (this.IsChildOf(from.Backpack))
             {
-                from.SendLocalizedMessage(502655); // What spinning wheel do you wish to spin this on?
+                from.SendMessage("Escolha uma roda de tecer");
                 from.Target = new PickWheelTarget(this);
-            }
-            else
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
         }
 
@@ -88,6 +84,12 @@ namespace Server.Items
                 if (this.m_Cotton.Deleted)
                     return;
 
+                if(this.m_Cotton.Amount < 5)
+                {
+                    from.SendMessage("Junte pelo menos 5 bolas de algodao");
+                    return;
+                }
+
                 ISpinningWheel wheel = targeted as ISpinningWheel;
 
                 if (wheel == null && targeted is AddonComponent)
@@ -103,17 +105,17 @@ namespace Server.Items
                     }
                     else if (wheel.Spinning)
                     {
-                        from.SendLocalizedMessage(502656); // That spinning wheel is being used.
+                        from.SendMessage("Esta roda ja esta sendo usada");
                     }
                     else
                     {
-                        this.m_Cotton.Consume();
+                        this.m_Cotton.Consume(5);
                         wheel.BeginSpin(new SpinCallback(Cotton.OnSpun), from, this.m_Cotton.Hue);
                     }
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502658); // Use that on a spinning wheel.
+                    from.SendMessage("Use isto em uma roda de tecer"); // Use that on a spinning wheel.
                 }
             }
         }

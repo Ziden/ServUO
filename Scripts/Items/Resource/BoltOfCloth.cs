@@ -19,11 +19,13 @@ namespace Server.Items
             this.Stackable = true;
             this.Weight = 5.0;
             this.Amount = amount;
+            this.Name = "Rolo de Tecido";
         }
 
         public BoltOfCloth(Serial serial)
             : base(serial)
         {
+            this.Name = "Rolo de Tecido";
         }
 
         TextDefinition ICommodity.Description
@@ -72,13 +74,6 @@ namespace Server.Items
             base.ScissorHelper(from, new Cloth(), 50);
 
             return true;
-        }
-
-        public override void OnSingleClick(Mobile from)
-        {
-            int number = (this.Amount == 1) ? 1049122 : 1049121;
-
-            from.Send(new MessageLocalized(this.Serial, this.ItemID, MessageType.Label, 0x3B2, 3, number, "", (this.Amount * 50).ToString()));
         }
     }
 }

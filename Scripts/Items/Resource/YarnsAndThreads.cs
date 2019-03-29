@@ -54,12 +54,8 @@ namespace Server.Items
         {
             if (IsChildOf(from.Backpack))
             {
-                from.SendLocalizedMessage(500366); // Select a loom to use that on.
+                from.SendMessage("Selecione uma maquina de tear"); // Select a loom to use that on.
                 from.Target = new PickLoomTarget(this);
-            }
-            else
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
         }
 
@@ -86,12 +82,25 @@ namespace Server.Items
                 {
                     if (!m_Material.IsChildOf(from.Backpack))
                     {
-                        from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+                        from.SendMessage("Isto precisa estar em sua mochila"); 
                     }
                     else if (loom.Phase < 4)
                     {
                         m_Material.Consume();
-
+                        switch(loom.Phase)
+                        {
+                            case 0:
+                                from.SendMessage("O rolo de tecido acabou de iniciar");
+                                break;
+                            case 2:
+                                from.SendMessage("O rolo de tecido esta na metade");
+                                break;
+                            case 3:
+                                from.SendMessage("O rolo de tecido esta quase terminando");
+                                break;
+                        }
+                        loom.Phase++;
+                      
                         if (targeted is Item)
                             ((Item)targeted).SendLocalizedMessageTo(from, 1010001 + loom.Phase++);
                     }
@@ -102,7 +111,7 @@ namespace Server.Items
 
                         m_Material.Consume();
                         loom.Phase = 0;
-                        from.SendLocalizedMessage(500368); // You create some cloth and put it in your backpack.
+                        from.SendMessage("Voce criou um rolo de tecido"); // You create some cloth and put it in your backpack.
                         from.AddToBackpack(create);
                     }
                 }
@@ -228,11 +237,13 @@ namespace Server.Items
         public SpoolOfThread(int amount)
             : base(0xFA0, amount)
         {
+            this.Name = "Carretilha de Linho";
         }
 
         public SpoolOfThread(Serial serial)
             : base(serial)
         {
+            this.Name = "Carretilha de Linho";
         }
 
         public override void Serialize(GenericWriter writer)

@@ -207,7 +207,7 @@ namespace Server.Misc
 
 			if (AllowGain(from, skill, amObj))
 			{
-				if (from.Alive && (skill.Base < 10.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
+				if (from.Alive && (skill.Base < 30.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
 				{
 					Gain(from, skill);
 				}

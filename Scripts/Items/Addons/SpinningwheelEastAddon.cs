@@ -115,7 +115,7 @@ namespace Server.Items
             private readonly Mobile m_From;
             private readonly int m_Hue;
             public SpinTimer(SpinningwheelEastAddon wheel, SpinCallback callback, Mobile from, int hue)
-                : base(TimeSpan.FromSeconds(3.0))
+                : base(TimeSpan.FromSeconds(1.0))
             {
                 this.m_Wheel = wheel;
                 this.m_Callback = callback;

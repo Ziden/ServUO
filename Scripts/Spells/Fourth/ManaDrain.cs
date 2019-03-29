@@ -50,7 +50,10 @@ namespace Server.Spells.Fourth
 
                 if (Core.AOS)
                 {
-                    int toDrain = 40 + (int)(this.GetDamageSkill(this.Caster) - this.GetResistSkill(m));
+
+                    var toDrainBase = this.Caster.Skills.SpiritSpeak.Fixed / 2;
+
+                    int toDrain = toDrainBase + (int)(this.GetDamageSkill(this.Caster) - this.GetResistSkill(m));
 
                     if (toDrain < 0)
                         toDrain = 0;

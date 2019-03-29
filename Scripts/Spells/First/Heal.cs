@@ -58,13 +58,12 @@ namespace Server.Spells.First
             {
                 SpellHelper.Turn(this.Caster, m);
 
-                int toHeal;
+                double toHeal;
 
                 if (Core.AOS)
                 {
                     toHeal = this.Caster.Skills.Magery.Fixed / 120;
                     toHeal += Utility.RandomMinMax(1, 4);
-
                     if (Core.SE && this.Caster != m)
                         toHeal = (int)(toHeal * 1.5);
                 }
@@ -72,10 +71,13 @@ namespace Server.Spells.First
                 {
                     toHeal = (int)(this.Caster.Skills[SkillName.Magery].Value * 0.1);
                     toHeal += Utility.Random(1, 5);
+
+                    toHeal *= 1 - (this.Caster.Skills.SpiritSpeak.Fixed / 300);
+                    toHeal *= 0.75 + this.Caster.Skills.Inscribe.Fixed / 300;
                 }
 
                 //m.Heal( toHeal, Caster );
-                SpellHelper.Heal(toHeal, m, this.Caster);
+                SpellHelper.Heal((int)toHeal, m, this.Caster);
 
                 m.FixedParticles(0x376A, 9, 32, 5005, EffectLayer.Waist);
                 m.PlaySound(0x1F2);

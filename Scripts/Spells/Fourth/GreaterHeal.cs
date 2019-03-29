@@ -61,11 +61,14 @@ namespace Server.Spells.Fourth
 
                 // Algorithm: (40% of magery) + (1-10)
 
-                int toHeal = (int)(this.Caster.Skills[SkillName.Magery].Value * 0.4);
+                double toHeal = (this.Caster.Skills[SkillName.Magery].Value * 0.4);
                 toHeal += Utility.Random(1, 10);
 
+                toHeal *= 1 - (this.Caster.Skills.SpiritSpeak.Fixed / 300);
+                toHeal *= 0.75 + this.Caster.Skills.Inscribe.Fixed / 300;
+
                 //m.Heal( toHeal, Caster );
-                SpellHelper.Heal(toHeal, m, this.Caster);
+                SpellHelper.Heal((int)toHeal, m, this.Caster);
 
                 m.FixedParticles(0x376A, 9, 32, 5030, EffectLayer.Waist);
                 m.PlaySound(0x202);

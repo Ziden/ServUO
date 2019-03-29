@@ -1,4 +1,5 @@
 using System;
+using Server.Misc;
 using Server.Mobiles;
 
 namespace Server.Spells.Eighth
@@ -36,6 +37,8 @@ namespace Server.Spells.Eighth
                 return false;
             }
 
+         
+
             return true;
         }
 
@@ -43,7 +46,13 @@ namespace Server.Spells.Eighth
         {
             if (this.CheckSequence())
             {
+                this.Caster.CheckSkill(SkillName.SpiritSpeak, 0, 100);
+
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
+
+                var ssBonus = this.Caster.Skills.SpiritSpeak.Fixed / 70;
+                var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
 
                 if (Core.AOS)
                     SpellHelper.Summon(new SummonedEarthElemental(), this.Caster, 0x217, duration, false, false);

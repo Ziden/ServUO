@@ -98,6 +98,10 @@ namespace Server.Spells.First
 
                         int percentage = (int)(SpellHelper.GetOffsetScalar(this.Caster, m, true) * 100);
                         TimeSpan length = SpellHelper.GetDuration(this.Caster, m);
+
+                        var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                        length.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
+
                         BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.FeebleMind, 1075833, length, m, percentage.ToString()));
 
                         if (m_Table.ContainsKey(m))
