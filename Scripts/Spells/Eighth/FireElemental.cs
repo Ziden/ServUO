@@ -45,7 +45,7 @@ namespace Server.Spells.Eighth
             if (this.CheckSequence())
             {
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
-                var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                var ssDurationBonusSeconds = this.Caster.Skills[SkillName.SpiritSpeak].Value;
                 duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
 
                 if (Core.AOS)

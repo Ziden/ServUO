@@ -24,14 +24,16 @@ namespace Server
             
 			TownCryerSystem.Enabled = Core.TOL;
 
-			ObjectPropertyList.Enabled = Core.AOS;
+			ObjectPropertyList.Enabled = true;
 
             Mobile.InsuranceEnabled = Core.AOS && !Siege.SiegeShard;
-			Mobile.VisibleDamageType = Core.AOS ? VisibleDamageType.Related : VisibleDamageType.None;
+			Mobile.VisibleDamageType = VisibleDamageType.Everyone;
 			Mobile.GuildClickMessage = !Core.AOS;
 			Mobile.AsciiClickMessage = !Core.AOS;
+            Mobile.ActionDelay = 0;
+            PacketHandlers.SingleClickProps = true;
 
-			if (!Core.AOS)
+            if (!Core.AOS)
 			{
 				return;
 			}
@@ -43,7 +45,7 @@ namespace Server
 				PacketHandlers.SingleClickProps = true; // single click for everything is overriden to check object property list
 			}
 
-			Mobile.ActionDelay = Core.TOL ? 500 : Core.AOS ? 1000 : 500;
+            Mobile.ActionDelay = 0;// Core.TOL ? 500 : Core.AOS ? 1000 : 500;
 			Mobile.AOSStatusHandler = AOS.GetStatus;
 		}
 	}

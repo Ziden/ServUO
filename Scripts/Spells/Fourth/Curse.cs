@@ -125,11 +125,11 @@ namespace Server.Spells.Fourth
 
             int percentage = (int)(SpellHelper.GetOffsetScalar(caster, m, true) * 100);
             TimeSpan length = SpellHelper.GetDuration(caster, m);
-            var ssDurationBonusSeconds = caster.Skills.SpiritSpeak.Fixed;
+            var ssDurationBonusSeconds = caster.Skills[SkillName.SpiritSpeak].Value;
             length.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
 
             string args;
-
+            
             if (masscurse)
             {
                 args = String.Format("{0}\t{0}\t{0}", percentage);

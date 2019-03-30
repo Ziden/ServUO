@@ -10,7 +10,7 @@ namespace Server
         {
             get
             {
-                return Core.ML;
+                return true;
             }
         }
 

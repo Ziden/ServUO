@@ -50,8 +50,8 @@ namespace Server.Spells.Eighth
 
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
-                var ssBonus = this.Caster.Skills.SpiritSpeak.Fixed / 70;
-                var ssDurationBonusSeconds = this.Caster.Skills.SpiritSpeak.Fixed;
+                var ssBonus = this.Caster.Skills[SkillName.SpiritSpeak].Value / 70;
+                var ssDurationBonusSeconds = this.Caster.Skills[SkillName.SpiritSpeak].Value;
                 duration.Add(TimeSpan.FromSeconds(ssDurationBonusSeconds));
 
                 if (Core.AOS)

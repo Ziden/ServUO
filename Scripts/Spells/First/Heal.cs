@@ -72,8 +72,8 @@ namespace Server.Spells.First
                     toHeal = (int)(this.Caster.Skills[SkillName.Magery].Value * 0.1);
                     toHeal += Utility.Random(1, 5);
 
-                    toHeal *= 1 - (this.Caster.Skills.SpiritSpeak.Fixed / 300);
-                    toHeal *= 0.75 + this.Caster.Skills.Inscribe.Fixed / 300;
+                    toHeal *= 1 - (this.Caster.Skills[SkillName.SpiritSpeak].Value / 300);
+                    toHeal *= 0.75 + this.Caster.Skills[SkillName.Inscribe].Value / 300;
                 }
 
                 //m.Heal( toHeal, Caster );
