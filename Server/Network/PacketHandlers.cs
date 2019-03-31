@@ -1705,14 +1705,15 @@ namespace Server.Network
 			{
 				var o = (Mobile)target;
 
-				if (Utility.InUpdateRange(m, o))
+                if (Utility.InUpdateRange(m, o))
 				{
 					if (MobileClickOverride == null || !MobileClickOverride(m, o))
 					{
 						if (SingleClickProps && m.ViewOPL)
 						{
-							o.OnAosSingleClick(m);
-						}
+                            //o.OnAosSingleClick(m);
+                            o.OnSingleClick(m);
+                        }
 						else if (m.Region.OnSingleClick(m, o))
 						{
 							o.OnSingleClick(m);
@@ -1935,12 +1936,14 @@ namespace Server.Network
 
 		public static void BatchQueryProperties(NetState state, PacketReader pvSrc)
 		{
-			if (state == null || state.Mobile == null || !state.Mobile.ViewOPL)
-			{
-				return;
-			}
 
-			Mobile from = state.Mobile;
+            if (state == null || state.Mobile == null || !state.Mobile.ViewOPL)
+            {
+                return;
+            }
+
+
+            Mobile from = state.Mobile;
 			int length = pvSrc.Size - 3;
 
 			if (length < 0 || (length % 4) != 0)
@@ -1978,12 +1981,13 @@ namespace Server.Network
 
 		public static void QueryProperties(NetState state, PacketReader pvSrc)
 		{
+
 			if (state == null || state.Mobile == null || !state.Mobile.ViewOPL)
 			{
 				return;
 			}
 
-			Mobile from = state.Mobile;
+            Mobile from = state.Mobile;
 
 			Serial s = pvSrc.ReadInt32();
 

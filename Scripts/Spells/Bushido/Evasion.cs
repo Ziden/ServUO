@@ -111,10 +111,7 @@ namespace Server.Spells.Bushido
                 defender.Emote("*evades*"); // Yes.  Eew.  Blame OSI.
                 defender.FixedEffect(0x37B9, 10, 16);
 
-                if (Core.SA)
-                {
-                    defender.Animate(AnimationType.Block, 0);
-                }
+                defender.Animate(AnimationType.Block, 0);
 
                 return true;
             }

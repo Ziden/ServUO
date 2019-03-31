@@ -331,7 +331,7 @@ namespace Server.Spells
 		{
             if (IsCasting && BlocksMovement && (!(m_Caster is BaseCreature) || ((BaseCreature)m_Caster).FreezeOnCast))
 			{
-				m_Caster.SendLocalizedMessage(500111); // You are frozen and can not move.
+				m_Caster.SendMessage("Voce nao pode se mover enquanto conjura este tipo de magia"); // You are frozen and can not move.
 				return false;
 			}
 
@@ -1297,7 +1297,11 @@ namespace Server.Spells
 					return;
 				}
 
-                if (!m_Spell.Caster.Mounted && m_Spell.m_Info.Action >= 0)
+                if(m_Spell.Caster.Mounted && m_Spell.m_Info.Action >= 0)
+                {
+                    m_Spell.Caster.Animate(AnimationType.Attack, 2);
+                }
+                else if (m_Spell.m_Info.Action >= 0)
                 {
                     if (Core.SA)
                     {

@@ -22,7 +22,7 @@ namespace Server
 		public int Header { get { return m_Header; } set { m_Header = value; } }
 		public string HeaderArgs { get { return m_HeaderArgs; } set { m_HeaderArgs = value; } }
 
-		public static bool Enabled { get; set; }
+        public static bool Enabled = true;
 
 		public ObjectPropertyList(IEntity e)
 			: base(0xD6)

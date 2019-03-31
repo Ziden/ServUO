@@ -79,14 +79,14 @@ namespace Server.Items
         {
             get
             {
-                return 10;
+                return 8;
             }
         }
         public override int OldMaxDamage
         {
             get
             {
-                return 30;
+                return 20;
             }
         }
         public override int OldSpeed

@@ -62,9 +62,7 @@ namespace Server.Items
                 var agora = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
                 var diferenca = (agora - plantouQuando) / 1000;
 
-
-
-                if ( diferenca < 60 ) // nao passou X segundos
+                if ( diferenca < 60 * 60 ) // nao passou X segundos
                 {
                     from.SendGump(new ConfirmaRoubo((int)diferenca, from, loc, map, this));
                     return;

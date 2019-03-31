@@ -1840,10 +1840,7 @@ namespace Server.Items
 					defender.FixedEffect(0x37B9, 10, 16);
 					damage = 0;
 
-                    if (Core.SA)
-                    {
-                        defender.Animate(AnimationType.Parry, 0);
-                    }
+                    defender.Animate(AnimationType.Parry, 0);
 
 					// Successful block removes the Honorable Execution penalty.
 					HonorableExecution.RemovePenalty(defender);
@@ -5386,6 +5383,7 @@ namespace Server.Items
 
         public override void AddNameProperties(ObjectPropertyList list)
         {
+
             base.AddNameProperties(list);
 
             if (this is IUsesRemaining && ((IUsesRemaining)this).ShowUsesRemaining)

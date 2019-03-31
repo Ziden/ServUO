@@ -803,7 +803,7 @@ namespace Server.Items
 				to.Send(new DisplaySpellbook(this));
 			}
 
-			if (ObjectPropertyList.Enabled)
+			if (false)
 			{
 				if (ns.NewSpellbook)
 				{

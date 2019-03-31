@@ -3695,8 +3695,8 @@ m_Stream.Write( (int) renderMode );
             }
             else
             {
-                type = Core.AOS ? 4 : 3;
-                //type = 2;
+                //type = Core.AOS ? 4 : 3;
+                type = 4;
                 EnsureCapacity(88);
             }
 

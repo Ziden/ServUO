@@ -7,11 +7,13 @@ namespace Server.Items
         public BaseStaff(int itemID)
             : base(itemID)
         {
+            this.Attributes.SpellChanneling = 1;
         }
 
         public BaseStaff(Serial serial)
             : base(serial)
         {
+            this.Attributes.SpellChanneling = 1;
         }
 
         public override int DefHitSound
@@ -61,6 +63,11 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
+        }
+
+        public override bool AllowEquipedCast(Mobile m)
+        {
+            return true;
         }
 
         public override void OnHit(Mobile attacker, IDamageable defender, double damageBonus)

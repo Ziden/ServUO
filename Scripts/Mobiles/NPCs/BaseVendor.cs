@@ -324,6 +324,8 @@ namespace Server.Mobiles
 			pack.Visible = false;
 			AddItem(pack);
 
+            NameHue = 0x35;
+
             BribeMultiplier = Utility.Random(10);
 
 			m_LastRestock = DateTime.UtcNow;
@@ -332,7 +334,8 @@ namespace Server.Mobiles
 		public BaseVendor(Serial serial)
 			: base(serial)
 		{
-			AllVendors.Add(this);
+            NameHue = 0x35;
+            AllVendors.Add(this);
 		}
 
 		public override void OnDelete()

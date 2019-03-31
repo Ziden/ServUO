@@ -801,7 +801,7 @@ namespace Server
 		private FrozenTimer m_FrozenTimer;
 		private int m_AllowedStealthSteps;
 		private int m_Hunger;
-		private int m_NameHue = -1;
+		public int m_NameHue = -1;
 		private Region m_Region;
 		private bool m_DisarmReady, m_StunReady;
 		private int m_BaseSoundID;
@@ -1141,8 +1141,9 @@ namespace Server
 					hue = Notoriety.GetHue(Notoriety.Compute(from, this));
 				}
 
-				from.Send(new MessageLocalized(m_Serial, Body, MessageType.Label, hue, 3, opl.Header, Name, opl.HeaderArgs));
-			}
+                PrivateOverheadMessage(MessageType.Regular, hue, true, Name, from.NetState);
+                //from.Send(new MessageLocalized(m_Serial, Body, MessageType.Label, hue, 0, opl.Header, Name, opl.HeaderArgs));
+            }
 		}
 
 		public virtual string ApplyNameSuffix(string suffix)
@@ -5259,10 +5260,12 @@ namespace Server
 
 						if (ns != null)
 						{
-							if (regp == null)
+
+                            if (regp == null)
 							{
-								regp = Packet.Acquire(new UnicodeMessage(m_Serial, Body, type, hue, 3, m_Language, Name, text));
-							}
+                                regp = Packet.Acquire(new AsciiMessage(m_Serial, Body, type, hue, 3, Name, text));
+                                //regp = Packet.Acquire(new UnicodeMessage(m_Serial, Body, type, hue, 3, m_Language, Name, text));
+                            }
 
 							ns.Send(regp);
 						}
@@ -5277,7 +5280,8 @@ namespace Server
 						{
 							if (mutp == null)
 							{
-								mutp = Packet.Acquire(new UnicodeMessage(m_Serial, Body, type, hue, 3, m_Language, Name, mutatedText));
+                                regp = Packet.Acquire(new AsciiMessage(m_Serial, Body, type, hue, 3, Name, mutatedText));
+                               // mutp = Packet.Acquire(new UnicodeMessage(m_Serial, Body, type, hue, 3, m_Language, Name, mutatedText));
 							}
 
 							ns.Send(mutp);
@@ -5652,6 +5656,7 @@ namespace Server
 
         public virtual void SendDamagePacket(Mobile from, int amount)
         {
+
             switch (m_VisibleDamageType)
             {
                 case VisibleDamageType.Related:
@@ -6911,6 +6916,12 @@ namespace Server
 
         public virtual void Animate(AnimationType type, int action)
         {
+
+            SendAnimatePacket(type, action);
+        }
+
+        private void SendAnimatePacket(AnimationType type, int action)
+        {
             Map map = m_Map;
 
             if (map != null)
@@ -6926,8 +6937,8 @@ namespace Server
                     if (state.Mobile.CanSee(this))
                     {
                         state.Mobile.ProcessDelta();
-                        
-                        p = Packet.Acquire(new NewMobileAnimation(this, type, action, Utility.Random(0, 60)));                          
+
+                        p = Packet.Acquire(new NewMobileAnimation(this, type, action, Utility.Random(0, 60)));
 
                         state.Send(p);
                     }
@@ -12581,8 +12592,9 @@ namespace Server
 
 					string text = String.Format(title.Length <= 0 ? "[{1}]{2}" : "[{0}, {1}]{2}", title, guild.Abbreviation, type);
 
-					PrivateOverheadMessage(MessageType.Regular, SpeechHue, true, text, from.NetState);
-				}
+                    PrivateOverheadMessage(MessageType.Regular, SpeechHue, true, text, from.NetState);
+                    //PrivateOverheadMessage(MessageType.Regular, 92, true, text, from.NetState);
+                }
 			}
 
 			int hue;

@@ -580,13 +580,13 @@
     <Compile Include="Items\Decorative\FlamingScarecrow.cs" />
     <Compile Include="Items\Decorative\SilverSaplingReplica.cs" />
     <Compile Include="Items\Decorative\ValentineBear.cs" />
-    <Compile Include="Items\Functional\Farmables\FarmableNightShade.cs" />
-    <Compile Include="Items\Functional\Farmables\FarmableGarlic.cs" />
-    <Compile Include="Items\Functional\Farmables\FarmableMandrakeroot.cs" />
-    <Compile Include="Items\Functional\Farmables\FarmableGinseng.cs" />
-    <Compile Include="Items\Functional\Plantable\BasePlantable.cs" />
-    <Compile Include="Items\Functional\Plantable\NightshadeSeeds.cs" />
-    <Compile Include="Items\Functional\Plantable\CottonSeeds.cs" />
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableNightShade.cs" />
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableGarlic.cs" />
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableMandrakeroot.cs" />
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableGinseng.cs" />
+    <Compile Include="Items\Functional\Herding\BasePlantable.cs" />
+    <Compile Include="Items\Functional\Herding\Plantable\NightshadeSeeds.cs" />
+    <Compile Include="Items\Functional\Herding\Plantable\CottonSeeds.cs" />
     <Compile Include="Items\Functional\SerpentsJawbone.cs" />
     <Compile Include="Items\Internal\ItemSockets\Caddellite.cs" />
     <Compile Include="Items\Internal\ItemSockets\EnchantedHotItem.cs" />
@@ -4972,34 +4972,34 @@
     <Compile Include="Items\Internal\Hair.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableCabbage.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableCabbage.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableCarrot.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableCarrot.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableCotton.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableCotton.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableCrop.cs">
+    <Compile Include="Items\Functional\Herding\BaseFarmable.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableFlax.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableFlax.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableLettuce.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableLettuce.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableOnion.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableOnion.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmablePumpkin.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmablePumpkin.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableTurnip.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableTurnip.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Functional\Farmables\FarmableWheat.cs">
+    <Compile Include="Items\Functional\Herding\Farmables\FarmableWheat.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Items\Consumables\Asian.cs">

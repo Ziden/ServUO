@@ -14,7 +14,6 @@
 @ECHO: Compile Ultima SDK
 @ECHO:
 
-@PAUSE
 
 @DEL "%CURPATH%Ultima.dll"
 
@@ -28,8 +27,6 @@
 @ECHO: Done!
 @ECHO:
 
-@PAUSE
-
 @CLS
 
 ::##########
@@ -38,7 +35,7 @@
 @ECHO: Compile %EXENAME% for Windows
 @ECHO:
 
-@PAUSE
+
 
 @DEL "%CURPATH%%EXENAME%.exe"
 
@@ -52,7 +49,7 @@
 @ECHO: Done!
 @ECHO:
 
-@PAUSE
+
 
 @CLS
 
@@ -62,7 +59,6 @@
 @ECHO: Ready To Run!
 @ECHO:
 
-@PAUSE
 
 @CLS
 

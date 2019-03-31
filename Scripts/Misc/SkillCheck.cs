@@ -1,6 +1,6 @@
 #region References
 using System;
-
+using System.Collections.Generic;
 using Server.Engines.Quests;
 using Server.Factions;
 using Server.Items;
@@ -179,7 +179,12 @@ namespace Server.Misc
 			return CheckSkill(from, skill, loc, chance);
 		}
 
-		public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
+        private static List<string> HardSkills = new List<string>() {
+              "Blacksmithy", "Bowcraft/Fletching", "Alchemy", "Animal Taming", "Cooking", "Herding", "Inscription", "Tinkering",
+              "Tailoring", "Mining", "Lumberjacking", "Carpentry"
+        };
+
+        public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
 		{
 			if (from.Skills.Cap == 0)
 				return false;
@@ -193,7 +198,29 @@ namespace Server.Misc
 			gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
 			gc /= 2;
 
-			gc *= skill.Info.GainFactor;
+            var gainFactor = skill.Info.GainFactor;
+
+            if(!HardSkills.Contains(skill.Name)) {
+                if(skill.Value < 50)
+                {
+                    gainFactor = 8;
+                } else if (skill.Value < 80)
+                {
+                    gainFactor = 3;
+                }
+                else if (skill.Value < 90)
+                {
+                    gainFactor = 2;
+                }
+            } else
+            {
+                if (skill.Value < 50)
+                {
+                    gainFactor = 3;
+                }
+            }
+
+            gc *= gainFactor;
 
 			if (gc < 0.01)
 				gc = 0.01;
