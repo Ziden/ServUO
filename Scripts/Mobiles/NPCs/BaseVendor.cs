@@ -1160,7 +1160,7 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					Say(true, "You have nothing I would be interested in.");
+					Say(true, "Voce nao tem nada que me interesse.");
 				}
 			}
 		}

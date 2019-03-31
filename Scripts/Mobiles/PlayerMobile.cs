@@ -131,6 +131,8 @@ namespace Server.Mobiles
             Instances = new List<PlayerMobile>(0x1000);
         }
 
+        public string CampfireLocations = "";
+
         #region Mount Blocking
         public void SetMountBlock(BlockMountType type, TimeSpan duration, bool dismount)
         {
@@ -1116,7 +1118,8 @@ namespace Server.Mobiles
             UpdateResistances();
         }
 
-        public override int MaxWeight { get { return (((Core.ML && Race == Race.Human) ? 100 : 40) + (int)(3.5 * Str)); } }
+        public override int MaxWeight { get {
+                return ( 40 + (int)(3.5 * Str)) + (int) (4 * Skills[SkillName.Camping].Value) ; } }
 
         private int m_LastGlobalLight = -1, m_LastPersonalLight = -1;
 
@@ -3568,9 +3571,19 @@ namespace Server.Mobiles
             return base.IsBeneficialCriminal(target);
         }
 
+        public long LastDamage = 0;
+
+        public long GetMillisSinceLastDamage()
+        {
+            var now = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            return now - LastDamage;
+        }
+
         public override void OnDamage(int amount, Mobile from, bool willKill)
         {
             int disruptThreshold;
+
+            LastDamage = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
             if (!Core.AOS)
             {
@@ -4506,6 +4519,9 @@ namespace Server.Mobiles
 
             switch (version)
             {
+                case 38:
+                    CampfireLocations = reader.ReadString();
+                    goto case 37;
                 case 37:
                     m_ExtendedFlags = (ExtendedPlayerFlag)reader.ReadInt();
                     goto case 36;
@@ -4950,7 +4966,9 @@ namespace Server.Mobiles
 
             base.Serialize(writer);
 
-            writer.Write(37); // version
+            writer.Write(38); // version
+
+            writer.Write(CampfireLocations);
 
             writer.Write((int)m_ExtendedFlags);
 

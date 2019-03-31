@@ -2791,10 +2791,10 @@ namespace Server.Items
             }            
 
             if (m_Crafter != null)
-				list.Add(1050043, m_Crafter.TitleName); // crafted by ~1_NAME~
+				list.Add("Feito por "+ m_Crafter.TitleName); // crafted by ~1_NAME~
 
             if (m_Quality == ItemQuality.Exceptional)
-                list.Add(1060636); // Exceptional
+                list.Add("Excepcional"); // Exceptional
            
             if (IsImbued)
                 list.Add(1080418); // (Imbued)
@@ -2835,12 +2835,12 @@ namespace Server.Items
             }
             #endregion
 
-            AddDamageTypeProperty(list);
+            //AddDamageTypeProperty(list);
 
             if (RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
+                list.Add("Apenas Elfos"); // Elves Only
             else if (RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
+                list.Add("Apenas Gargulas"); // Gargoyles Only
 
             if (this is SurgeShield && ((SurgeShield)this).Surge > SurgeType.None)
                 list.Add(1116176 + ((int)((SurgeShield)this).Surge));
@@ -2850,6 +2850,7 @@ namespace Server.Items
 
             int prop;
 
+            /*
             if ((prop = ArtifactRarity) > 0)
                 list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
 
@@ -2976,7 +2977,7 @@ namespace Server.Items
 			if (Core.ML && (prop = m_AosAttributes.IncreasedKarmaLoss) != 0)
                 list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
 
-            AddResistanceProperties(list);
+            //AddResistanceProperties(list);
 			
 			if ((prop = m_AosArmorAttributes.MageArmor) != 0)
                 list.Add(1060437); // mage armor
@@ -2989,6 +2990,57 @@ namespace Server.Items
 
             if (m_HitPoints >= 0 && m_MaxHitPoints > 0)
                 list.Add(1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints); // durability ~1_val~ / ~2_val~
+            */
+
+            if (m_Identified)
+            {
+                if (m_Durability != ArmorDurabilityLevel.Regular)
+                    switch(m_Durability)
+                    {
+                        case ArmorDurabilityLevel.Durable:
+                            list.Add("Duravel");
+                            break;
+                        case ArmorDurabilityLevel.Fortified:
+                            list.Add("Fortificado");
+                            break;
+                        case ArmorDurabilityLevel.Indestructible:
+                            list.Add("Indestrutivel");
+                            break;
+                        case ArmorDurabilityLevel.Massive:
+                            list.Add("Massiva");
+                            break;
+                        case ArmorDurabilityLevel.Substantial:
+                            list.Add("Substancial");
+                            break;
+                    }
+                   
+                if (m_Protection > ArmorProtectionLevel.Regular && m_Protection <= ArmorProtectionLevel.Invulnerability)
+                    switch(m_Protection)
+                    {
+                        case ArmorProtectionLevel.Defense:
+                            list.Add("Resistente");
+                            break;
+                        case ArmorProtectionLevel.Fortification:
+                            list.Add("Fortalecido");
+                            break;
+                        case ArmorProtectionLevel.Guarding:
+                            list.Add("Guardiao");
+                            break;
+                        case ArmorProtectionLevel.Hardening:
+                            list.Add("Endurecedor");
+                            break;
+                        case ArmorProtectionLevel.Invulnerability:
+                            list.Add("Invulneravel");
+                            break;
+                    }
+            }
+            else if (m_Durability != ArmorDurabilityLevel.Regular || (m_Protection > ArmorProtectionLevel.Regular && m_Protection <= ArmorProtectionLevel.Invulnerability))
+                list.Add("[ Nao Identificado ]");
+
+            if (LootType == LootType.Blessed)
+                list.Add("Abencoado");
+            else if (LootType == LootType.Cursed)
+                list.Add("Amaldicoado");
 
             Server.Engines.XmlSpawner2.XmlAttach.AddAttachmentProperties(this, list);
 

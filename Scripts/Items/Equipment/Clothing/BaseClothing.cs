@@ -1225,7 +1225,7 @@ namespace Server.Items
             }
 
             if (m_Crafter != null)
-                list.Add(1050043, m_Crafter.TitleName); // crafted by ~1_NAME~
+                list.Add("Feito por "+ m_Crafter.TitleName); // crafted by ~1_NAME~
 
             if (m_Quality == ItemQuality.Exceptional)
                 list.Add(1018303); // Exceptional
@@ -1270,10 +1270,10 @@ namespace Server.Items
             #endregion
 
             if (RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
+                list.Add("Apenas Elfos"); // Elves Only
             #region Stygian Abyss
             else if (RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
+                list.Add("Apenas Gargulas"); // Gargoyles Only
             #endregion
 
             if (m_NegativeAttributes != null)
@@ -1324,6 +1324,8 @@ namespace Server.Items
 			if ((prop = m_SAAbsorptionAttributes.CastingFocus) != 0)
                 list.Add(1113696, prop.ToString()); // Casting Focus ~1_val~%
             #endregion
+
+            /*
 
             if ((prop = m_AosAttributes.SpellChanneling) != 0)
                 list.Add(1060482); // spell channeling
@@ -1420,6 +1422,8 @@ namespace Server.Items
             if (m_HitPoints >= 0 && m_MaxHitPoints > 0)
                 list.Add(1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints); // durability ~1_val~ / ~2_val~
 
+            */
+    
             #region Mondain's Legacy Sets
             if (IsSetItem && !m_SetEquipped)
             {

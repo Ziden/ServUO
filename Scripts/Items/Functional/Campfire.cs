@@ -21,6 +21,7 @@ namespace Server.Items
         private readonly DateTime m_Created;
         private readonly ArrayList m_Entries;
         public string nomeDeQUemAscendeu = null;
+        public bool regenera = false;
         public bool Safe = false;
 
         public Campfire()
@@ -32,7 +33,7 @@ namespace Server.Items
             this.m_Entries = new ArrayList();
 
             this.m_Created = DateTime.UtcNow;
-            this.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0), new TimerCallback(OnTick));
+            this.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(3.0), new TimerCallback(OnTick));
         }
 
         public Campfire(Serial serial)
@@ -53,7 +54,7 @@ namespace Server.Items
         {
             get
             {
-                switch ( this.ItemID )
+                switch (this.ItemID)
                 {
                     case 0xDE3:
                         return CampfireStatus.Burning;
@@ -70,7 +71,7 @@ namespace Server.Items
                 if (this.Status == value)
                     return;
 
-                switch ( value )
+                switch (value)
                 {
                     case CampfireStatus.Burning:
                         this.ItemID = 0xDE3;
@@ -101,17 +102,42 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            if(!Safe)
+            if (!Safe)
             {
                 from.SendMessage("Aguarde o acampamento ficar seguro");
                 return;
             }
             if (from.Skills[SkillName.Camping].Value < 50)
             {
-                from.SendMessage("Voce precisa de pelo menos 50 camping para usar acampamento");
+                from.SendMessage("Voce precisa de pelo menos 50 camping para usar um acampamento");
                 return;
             }
+
+            var timenow = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            if (from is PlayerMobile && ((PlayerMobile)from).GetMillisSinceLastDamage() < 1000 * 10) // 10 segundos
+            {
+                from.SendMessage("Voce recebeu dano a pouco tempo e nao pode fazer isto");
+                return;
+            }
+
+            if(from.Warmode)
+            {
+                from.SendMessage("Voce esta em combate");
+                return;
+            }
+
+            if (from.Mounted)
+            {
+                from.Animate(AnimationType.Attack, 2);
+            }
+            else
+            {
+                from.Animate(AnimationType.Spell, 1);
+            }
+
             GoGump.DisplayToCampfire(from);
+
+            from.SendMessage("Para liberar locais, faca um acampamento na cidade ou na porta da masmorra, ou em lugares especificos.");
         }
 
         public override void OnAfterDelete()
@@ -164,6 +190,11 @@ namespace Server.Items
                     entry.Safe = true;
                     this.Safe = true;
                     entry.Player.SendMessage("O Acampamento esta seguro");
+
+                    if(entry.Player.Skills[SkillName.Camping].Value > 50)
+                    {
+                        GoGump.GetDiscoveredLocation(entry.Player);
+                    }
                 }
             }
 
@@ -172,6 +203,18 @@ namespace Server.Items
             foreach (NetState state in eable)
             {
                 PlayerMobile pm = state.Mobile as PlayerMobile;
+
+                if (regenera)
+                {
+                    var timenow = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                    if (!pm.Warmode && pm.GetMillisSinceLastDamage() >= 1000 * 10) // 10 segundos
+                    {
+                        pm.FixedParticles(0x376A, 9, 32, 5005, EffectLayer.Waist);
+                        pm.Hits += 1;
+                        pm.Stam += 5;
+                    }
+
+                }
 
                 if (pm != null && GetEntry(pm) == null)
                 {

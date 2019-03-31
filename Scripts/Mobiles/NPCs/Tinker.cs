@@ -68,7 +68,7 @@ namespace Server.Mobiles
         {
             base.AddCustomContextEntries(from, list);
 
-            if (Core.ML && from.Alive)
+            if (from.Alive)
             {
                 list.Add(new RechargeEntry(from, this));
             }

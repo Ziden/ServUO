@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Server.Mobiles;
 using Server.Network;
 
 namespace Server.Gumps
@@ -104,7 +106,6 @@ namespace Server.Gumps
             from.SendMessage("DEBUG: Colocar locs do novo mapa");
 
             ParentNode branch = null;
-            CampingPoints.LastBranch.TryGetValue(from, out branch);
 
             if (branch == null)
                 branch = CampingPoints.Root;
@@ -118,6 +119,69 @@ namespace Server.Gumps
         private readonly int m_Page;
         private bool camp = false;
 
+        private static List<ChildNode> GetChildren(ParentNode node, List<ChildNode> childList)
+        {
+            foreach (var children in node.Children)
+            {
+                if (children is ParentNode)
+                {
+                    GetChildren((ParentNode)children, childList);
+                } else if (children is ChildNode)
+                {
+                    childList.Add((ChildNode)children);
+                }
+            }
+            return childList;
+        }
+
+        public static List<ChildNode> GetAllChildsCamping()
+        {
+            List<ChildNode> allChilds = new List<ChildNode>();
+            var tree = GoGump.CampingPoints.Root;
+            foreach(var children in tree.Children) { 
+                if(children is ParentNode)
+                {
+                    GetChildren((ParentNode)children, allChilds);
+                }
+                else if(children is ChildNode)
+                {
+                    allChilds.Add((ChildNode)children);
+                }
+            }
+            return allChilds;
+        }
+
+        public static void GetDiscoveredLocation(PlayerMobile from)
+        {
+            var discobertas = from.CampfireLocations.Split(';').ToList();
+            var childs = GetAllChildsCamping();
+
+            double menorDist = 999999999999999999;
+
+            ChildNode prox = null;
+     
+            foreach(var loc in childs)
+            {
+                if(!discobertas.Contains(loc.Name))
+                {
+                    var distancia = from.GetDistanceToSqrt(loc.Location);
+                    if(distancia < 2000)
+                    {
+                        if(distancia < menorDist)
+                        {
+                            menorDist = distancia;
+                            prox = loc;
+                        }
+                    }
+                }
+            }
+
+            if(prox != null)
+            {
+                from.CampfireLocations += prox.Name + ";";
+                from.Emote("Local de Camping Descoberto: " + prox.Name);
+            }
+        }
 
         private GoGump(int page, Mobile from, LocationTree tree, ParentNode node, bool campfire = false)
             : base(50, 50)
@@ -199,6 +263,8 @@ namespace Server.Gumps
                     this.AddLabel(x + NextLabelOffsetX, y + NextLabelOffsetY, TextHue, "Next");
             }
 
+            var campsLiberados = ((PlayerMobile)from).CampfireLocations.Split(';').ToList();
+
             for (int i = 0, index = page * EntryCount; i < EntryCount && index < node.Children.Length; ++i, ++index)
             {
                 x = BorderSize + OffsetSize;
@@ -220,7 +286,8 @@ namespace Server.Gumps
                 if (SetGumpID != 0)
                     this.AddImageTiled(x, y, SetWidth, EntryHeight, SetGumpID);
 
-                this.AddButton(x + SetOffsetX, y + SetOffsetY, SetButtonID1, SetButtonID2, index + 4, GumpButtonType.Reply, 0);
+                if(child is ParentNode || campsLiberados.Contains(name))
+                    this.AddButton(x + SetOffsetX, y + SetOffsetY, SetButtonID1, SetButtonID2, index + 4, GumpButtonType.Reply, 0);
             }
         }
 

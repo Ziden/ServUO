@@ -5109,6 +5109,7 @@ namespace Server.Items
 
             if (this is ITool)
             {
+                
                 m_UsesRemaining = Utility.RandomMinMax(25, 75);
             }
             else
@@ -5386,9 +5387,17 @@ namespace Server.Items
 
             base.AddNameProperties(list);
 
+            /*
             if (this is IUsesRemaining && ((IUsesRemaining)this).ShowUsesRemaining)
             {
-                list.Add(1060584, ((IUsesRemaining)this).UsesRemaining.ToString()); // uses remaining: ~1_val~
+                var uses = ((IUsesRemaining)this).UsesRemaining.ToString()
+                list.Add(1060584,); // uses remaining: ~1_val~
+            }
+            */
+            var uses = ((IUsesRemaining)this).UsesRemaining;
+            if ( uses < 10 )
+            {
+                list.Add("Quase Quebrando");
             }
 
             if (OwnerName != null)
@@ -5398,7 +5407,7 @@ namespace Server.Items
 
             if (m_Crafter != null)
             {
-                list.Add(1050043, m_Crafter.TitleName); // crafted by ~1_NAME~
+                list.Add("Feito por "+m_Crafter.TitleName); // crafted by ~1_NAME~
             }
 
             if (m_Quality == ItemQuality.Exceptional)
@@ -5470,7 +5479,7 @@ namespace Server.Items
             if (m_Poison != null && m_PoisonCharges > 0 && CanShowPoisonCharges())
 			{
 				#region Mondain's Legacy mod
-				list.Add(m_Poison.LabelNumber, m_PoisonCharges.ToString());
+				list.Add("Envenenada");
 				#endregion
 			}
 
@@ -5582,6 +5591,7 @@ namespace Server.Items
                 }
             }
 
+            /*
             if ((prop = m_AosWeaponAttributes.SplinteringWeapon) != 0)
             {
                 list.Add(1112857, prop.ToString()); //splintering weapon ~1_val~%
@@ -6061,8 +6071,99 @@ namespace Server.Items
 			{
 				list.Add(1060639, "{0}\t{1}", m_Hits, m_MaxHits); // durability ~1_val~ / ~2_val~
 			}
+            */
 
-			if (IsSetItem && !m_SetEquipped)
+
+            if (m_Identified)
+            {
+                if (m_DurabilityLevel != WeaponDurabilityLevel.Regular)
+                {
+                    switch(m_DurabilityLevel)
+                    {
+                        case WeaponDurabilityLevel.Durable:
+                            list.Add("Duravel");
+                            break;
+                        case WeaponDurabilityLevel.Substantial:
+                            list.Add("Muito Duravel");
+                            break;
+                        case WeaponDurabilityLevel.Massive:
+                            list.Add("Bastante Duravel");
+                            break;
+                        case WeaponDurabilityLevel.Fortified:
+                            list.Add("Extremamente Duravel");
+                            break;
+                        case WeaponDurabilityLevel.Indestructible:
+                            list.Add("Indestrutivel");
+                            break;
+                    }
+                }
+
+                if (m_DamageLevel != WeaponDamageLevel.Regular)
+                {
+                    switch(m_DamageLevel)
+                    {
+                        case WeaponDamageLevel.Ruin:
+                            list.Add("Ruina");
+                            break;
+                        case WeaponDamageLevel.Force:
+                            list.Add("Forca");
+                            break;
+                        case WeaponDamageLevel.Might:
+                            list.Add("Potencia");
+                            break;
+                        case WeaponDamageLevel.Power:
+                            list.Add("Poder");
+                            break;
+                        case WeaponDamageLevel.Vanq:
+                            list.Add("Degolacao");
+                            break;
+                    }
+                }
+
+                if (m_AccuracyLevel != WeaponAccuracyLevel.Regular)
+                {
+                    switch(m_AccuracyLevel)
+                    {
+                        case WeaponAccuracyLevel.Accurate:
+                            list.Add("Precisao");
+                            break;
+                        case WeaponAccuracyLevel.Surpassingly:
+                            list.Add("Boa Precisao");
+                            break;
+                        case WeaponAccuracyLevel.Eminently:
+                            list.Add("Excelente Precisao");
+                            break;
+                        case WeaponAccuracyLevel.Exceedingly:
+                            list.Add("Extrema Precisao");
+                            break;
+                        case WeaponAccuracyLevel.Supremely:
+                            list.Add("Perfeita Precisao");
+                            break;
+                    }
+                }
+            }
+            else if (m_Slayer != SlayerName.None || m_Slayer2 != SlayerName.None ||
+                     m_DurabilityLevel != WeaponDurabilityLevel.Regular || m_DamageLevel != WeaponDamageLevel.Regular ||
+                     m_AccuracyLevel != WeaponAccuracyLevel.Regular)
+            {
+                list.Add("[ Nao Identificado ]");
+            }
+
+            if (Layer == Layer.TwoHanded)
+            {
+                list.Add("Duas Maos"); // two-handed weapon
+            }
+
+            if (LootType == LootType.Blessed)
+            {
+                list.Add("Abencoado");
+            }
+            else if (LootType == LootType.Cursed)
+            {
+                list.Add("Amaldicoado");
+            }
+
+            if (IsSetItem && !m_SetEquipped)
 			{
 				list.Add(1072378); // <br>Only when full set is present:
 				GetSetProperties(list);

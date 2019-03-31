@@ -189,10 +189,10 @@ namespace Server
 				new ExpansionInfo(
 					4,
 					"Blackthorn's Revenge",
-					ClientFlags.Ilshenar,
-					FeatureFlags.ExpansionLBR,
-					CharacterListFlags.ExpansionLBR,
-					HousingFlags.None),
+					ClientFlags.Felucca,
+					FeatureFlags.ExpansionEJ,
+					CharacterListFlags.ExpansionEJ,
+                    HousingFlags.HousingTOL),
 				new ExpansionInfo(
 					5,
 					"Age of Shadows",
@@ -254,7 +254,10 @@ namespace Server
 				return info.SupportedFeatures;
 			}
 
-			switch (ex)
+            return FeatureFlags.ExpansionEJ;
+
+            /*
+            switch (ex)
 			{
 				case Expansion.None:
 					return FeatureFlags.ExpansionNone;
@@ -283,6 +286,7 @@ namespace Server
 			}
 
 			return FeatureFlags.ExpansionNone;
+            */
 		}
 
 		public static ExpansionInfo GetInfo(Expansion ex)

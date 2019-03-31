@@ -76,18 +76,21 @@ namespace Server.Gumps
 
             AddHtmlLocalized(0, 20, 400, 35, 1011022, false, false); // <center>Resurrection</center>
 
-            AddHtmlLocalized(50, 55, 300, 140, 1011023 + (int)msg, true, true); /* It is possible for you to be resurrected here by this healer. Do you wish to try?<br>
-            * CONTINUE - You chose to try to come back to life now.<br>
-            * CANCEL - You prefer to remain a ghost for now.
-            */
+            //AddHtmlLocalized(50, 55, 300, 140, 1011023 + (int)msg, true, true); /* It is possible for you to be resurrected here by this healer. Do you wish to try?<br>
+            //* CONTINUE - You chose to try to come back to life now.<br>
+            //* CANCEL - You prefer to remain a ghost for now.
+            //*/
+            AddLabel(50, 55, 55, "Voce gostaria de ressusitar ?");
 
             m_Callback = callback;
 
             AddButton(200, 227, 4005, 4007, 0, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(235, 230, 110, 35, 1011012, false, false); // CANCEL
+            // AddHtmlLocalized(235, 230, 110, 35, 1011012, false, false); // CANCEL
+            AddLabel(235, 230, 55, "Cancelar");
 
+            AddLabel(100, 230, 55, "Ressar");
             AddButton(65, 227, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(100, 230, 110, 35, 1011011, false, false); // CONTINUE
+            //AddHtmlLocalized(100, 230, 110, 35, 1011011, false, false); // CONTINUE
         }
 
         public ResurrectGump(Mobile owner, Mobile healer, int price)
@@ -117,7 +120,7 @@ namespace Server.Gumps
             AddImageTiled(15, 15, 365, 190, 2624);
 
             AddRadio(30, 140, 9727, 9730, true, 1);
-            AddHtmlLocalized(65, 145, 300, 25, 1060015, 0x7FFF, false, false); // Grudgingly pay the money
+            AddLabel (65, 145, 55, "Pagar resmungando"); // Grudgingly pay the money
 
             AddRadio(30, 175, 9727, 9730, false, 0);
             AddHtmlLocalized(65, 178, 300, 25, 1060016, 0x7FFF, false, false); // I'd rather stay dead, you scoundrel!!!

@@ -1021,7 +1021,7 @@ namespace Server.Items
 
             AddProperty(list);
 
-			list.Add(1042886, m_Count.ToString()); // ~1_NUMBERS_OF_SPELLS~ Spells
+			list.Add(m_Count.ToString()+ " Magias"); // ~1_NUMBERS_OF_SPELLS~ Spells
 
             if (this.m_MaxHitPoints > 0)
                 list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~

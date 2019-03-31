@@ -74,7 +74,17 @@ namespace Server.Items
 
                 var campfire = new Campfire();
                 campfire.nomeDeQUemAscendeu = from.Name;
+          
                 campfire.MoveToWorld(fireLocation, from.Map);
+
+                if (from.Skills[SkillName.Camping].Value >= 80)
+                {
+                    campfire.regenera = true;
+                    from.SendMessage("Voce ascende a fogueira com perfeicao. Esta fogueira regenerara HP e Stamina de jogadores proximos."); // You fail to ignite the campfire.
+                }
+
+
+
             }
         }
 
