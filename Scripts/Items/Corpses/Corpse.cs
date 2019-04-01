@@ -1473,8 +1473,9 @@ namespace Server.Items
 
 			if (GetFlag(CorpseFlag.Carved) || dead == null)
 			{
-                PrivateOverheadMessage(MessageType.Regular, 0x3B2, 500485, from.NetState); // You see nothing useful to carve from the corpse.
-			}
+                // PrivateOverheadMessage(MessageType.Regular, 0x3B2, 500485, from.NetState); // You see nothing useful to carve from the corpse.
+                from.SendMessage("Nada de util para coletar nesse corpo");
+            }
 			else if (((Body)Amount).IsHuman && ItemID == 0x2006)
 			{
 				new Blood(0x122D).MoveToWorld(Location, Map);

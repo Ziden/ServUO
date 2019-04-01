@@ -18,6 +18,7 @@ namespace Server.Items
             : base(uses, 0xFBB)
         {
             this.Weight = 2.0;
+            Name = "Alicate";
         }
 
         public Tongs(Serial serial)

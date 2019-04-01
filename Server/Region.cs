@@ -12,6 +12,13 @@ using Server.Targeting;
 
 namespace Server
 {
+    public enum NovasMusicas
+    {
+        florestinha = 57,
+        muitodahora = 72,
+    }
+
+
 	public enum MusicName
 	{
 		Invalid = -1,

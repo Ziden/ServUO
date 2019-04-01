@@ -8,7 +8,7 @@ namespace Server.Mobiles
         [Constructable]
         public Merchant()
         {
-            this.Title = "the merchant";
+            this.Title = "o mercador";
             this.SetSkill(SkillName.ItemID, 55.0, 78.0);
             this.SetSkill(SkillName.ArmsLore, 55, 78);
         }

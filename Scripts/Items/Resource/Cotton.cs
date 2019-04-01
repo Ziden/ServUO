@@ -16,7 +16,7 @@ namespace Server.Items
             : base(0xDF9)
         {
             this.Stackable = true;
-            this.Weight = 1.0;
+            this.Weight = 0.8;
             this.Amount = amount;
             this.Name = "Bolas de Algodao Fofinhas";
         }

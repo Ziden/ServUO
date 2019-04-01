@@ -8,7 +8,7 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Rancher()
-            : base("the rancher")
+            : base("o rancheiro")
         {
             this.SetSkill(SkillName.AnimalLore, 55.0, 78.0);
             this.SetSkill(SkillName.AnimalTaming, 55.0, 78.0);

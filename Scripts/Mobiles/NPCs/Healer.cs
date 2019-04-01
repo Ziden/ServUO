@@ -7,7 +7,7 @@ namespace Server.Mobiles
         [Constructable]
         public Healer()
         {
-            this.Title = "the healer";
+            this.Title = "o curandeiro";
 
             if (!Core.AOS)
                 this.NameHue = 0x35;

@@ -15,6 +15,7 @@ namespace Server.Items
     public class DyeTub : Item, ISecurable
     {
         private bool m_Redyable;
+        public int Charges;
         private int m_DyedHue;
         private SecureLevel m_SecureLevel;
 
@@ -24,6 +25,8 @@ namespace Server.Items
         {
             Weight = 10.0;
             m_Redyable = true;
+            Charges = 20;
+            Name = "Balde de Tintas";
         }
 
         public DyeTub(Serial serial)
@@ -73,8 +76,9 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)1); // version
-			
+            writer.Write((int)2); // version
+
+            writer.Write(Charges);
             writer.Write((int)m_SecureLevel);
             writer.Write((bool)m_Redyable);
             writer.Write((int)m_DyedHue);
@@ -87,6 +91,11 @@ namespace Server.Items
 
             switch ( version )
             {
+                case 2:
+                    {
+                        Charges = reader.ReadInt();
+                        goto case 1;
+                    }
                 case 1:
                     {
                         m_SecureLevel = (SecureLevel)reader.ReadInt();
@@ -99,6 +108,31 @@ namespace Server.Items
 
                         break;
                     }
+            }
+        }
+
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            list.Add("Balde de Tintas");
+            if(Charges == 20)
+            {
+                list.Add("Cheio");
+            }
+            else if (Charges >= 15)
+            {
+                list.Add("Quase Cheio");
+            }
+            else if (Charges >= 10)
+            {
+                list.Add("Pouco mais da metade cheio");
+            }
+            else if (Charges >= 5)
+            {
+                list.Add("Pouco menos da metade cheio");
+            }
+            else if (Charges >= 0)
+            {
+                list.Add("Quase Vazio");
             }
         }
 
@@ -140,11 +174,22 @@ namespace Server.Items
                     if (item is IDyable && m_Tub.AllowDyables)
                     {
                         if (!from.InRange(m_Tub.GetWorldLocation(), 1) || !from.InRange(item.GetWorldLocation(), 1))
-                            from.SendLocalizedMessage(500446); // That is too far away.
-                        else if (item.Parent is Mobile)
-                            from.SendLocalizedMessage(500861); // Can't Dye clothing that is being worn.
+                            from.SendMessage("Isto esta muito longe"); // That is too far away.
+                        else if (item.Parent is Mobile && ((Mobile)item.Parent).Serial != from.Serial)
+                            from.SendMessage("Voce nao pode usar o balde de tintas nisso"); // Can't Dye clothing that is being worn.
                         else if (((IDyable)item).Dye(from, m_Tub))
+                        {
                             from.PlaySound(0x23E);
+                            m_Tub.Charges--;
+                            if(m_Tub.Charges == 0)
+                            {
+                                m_Tub.Consume();
+                                from.SendMessage("Seu balde de tintas se acabou");
+                            } else
+                            {
+                                m_Tub.InvalidateProperties();
+                            }
+                        }
                     }
                     else if ((FurnitureAttribute.Check(item) || (item is PotionKeg)) && m_Tub.AllowFurniture)
                     {

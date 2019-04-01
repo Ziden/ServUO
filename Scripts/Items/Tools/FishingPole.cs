@@ -193,7 +193,7 @@ namespace Server.Items
             Layer = Layer.OneHanded;
             Weight = 8.0;
             Resource = CraftResource.RegularWood;
-
+            Name = "Vara de Pescar";
             m_BaitType = null;
             m_HookType = HookType.None;
 

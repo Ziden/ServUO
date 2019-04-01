@@ -2647,13 +2647,13 @@ m_Stream.Write( (int) renderMode );
 
 				if (p == null)
 				{
-					cache[index] = p = new MessageLocalized(Serial.MinusOne, -1, MessageType.Regular, 0x3B2, 3, number, "System", "");
+					cache[index] = p = new MessageLocalized(Serial.MinusOne, -1, MessageType.Regular, 0x488, 3, number, "System", "");
 					p.SetStatic();
 				}
 			}
 			else
 			{
-				p = new MessageLocalized(Serial.MinusOne, -1, MessageType.Regular, 0x3B2, 3, number, "System", "");
+				p = new MessageLocalized(Serial.MinusOne, -1, MessageType.Regular, 0x488, 3, number, "System", "");
 			}
 
 			return p;
@@ -3205,7 +3205,34 @@ m_Stream.Write( (int) renderMode );
 			return p;
 		}
 
-		public PlayMusic(MusicName name)
+        public static Packet GetInstance(int d)
+        {
+            int v = d;
+            Packet p;
+
+            if (v >= 0 && v < m_Instances.Length)
+            {
+                p = m_Instances[v];
+
+                if (p == null)
+                {
+                    m_Instances[v] = p = SetStatic(new PlayMusic((short)v));
+                }
+            }
+            else
+            {
+                p = new PlayMusic((short)v);
+            }
+            return p;
+        }
+
+        public PlayMusic(short id)
+           : base(0x6D, 3)
+        {
+            m_Stream.Write(id);
+        }
+
+        public PlayMusic(MusicName name)
 			: base(0x6D, 3)
 		{
 			m_Stream.Write((short)name);

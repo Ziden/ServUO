@@ -146,7 +146,7 @@ namespace Server.Items
             if (this.Amount > 1)
                 list.Add(1050039, "{0}\t#{1}", this.Amount, 1027154); // ~1_NUMBER~ ~2_ITEMNAME~
             else
-                list.Add(1027154); // ingots
+                list.Add("Lingotes"); // ingots
         }
 
         public override void GetProperties(ObjectPropertyList list)
@@ -172,17 +172,20 @@ namespace Server.Items
         public IronIngot()
             : this(1)
         {
+            Name = "Lingotes";
         }
 
         [Constructable]
         public IronIngot(int amount)
             : base(CraftResource.Iron, amount)
         {
+            Name = "Lingotes";
         }
 
         public IronIngot(Serial serial)
             : base(serial)
         {
+            Name = "Lingotes";
         }
 
         public override void Serialize(GenericWriter writer)

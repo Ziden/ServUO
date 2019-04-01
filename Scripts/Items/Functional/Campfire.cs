@@ -31,7 +31,7 @@ namespace Server.Items
             this.Light = LightType.Circle300;
 
             this.m_Entries = new ArrayList();
-
+            Name = "Fogueira";
             this.m_Created = DateTime.UtcNow;
             this.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(3.0), new TimerCallback(OnTick));
         }
@@ -213,7 +213,6 @@ namespace Server.Items
                         pm.Hits += 1;
                         pm.Stam += 5;
                     }
-
                 }
 
                 if (pm != null && GetEntry(pm) == null)

@@ -91,15 +91,15 @@ namespace Server.Engines.Harvest
 
             res = new HarvestResource[]
             {
-                new HarvestResource(00.0, 00.0, 100.0, 1007072, typeof(IronOre), typeof(Granite)),
-                new HarvestResource(65.0, 25.0, 105.0, 1007073, typeof(DullCopperOre),	typeof(DullCopperGranite), typeof(DullCopperElemental)),
-                new HarvestResource(70.0, 30.0, 110.0, 1007074, typeof(ShadowIronOre),	typeof(ShadowIronGranite), typeof(ShadowIronElemental)),
-                new HarvestResource(75.0, 35.0, 115.0, 1007075, typeof(CopperOre), typeof(CopperGranite), typeof(CopperElemental)),
-                new HarvestResource(80.0, 40.0, 120.0, 1007076, typeof(BronzeOre), typeof(BronzeGranite), typeof(BronzeElemental)),
-                new HarvestResource(85.0, 45.0, 125.0, 1007077, typeof(GoldOre), typeof(GoldGranite), typeof(GoldenElemental)),
-                new HarvestResource(90.0, 50.0, 130.0, 1007078, typeof(AgapiteOre), typeof(AgapiteGranite), typeof(AgapiteElemental)),
-                new HarvestResource(95.0, 55.0, 135.0, 1007079, typeof(VeriteOre), typeof(VeriteGranite), typeof(VeriteElemental)),
-                new HarvestResource(99.0, 59.0, 139.0, 1007080, typeof(ValoriteOre), typeof(ValoriteGranite), typeof(ValoriteElemental))
+                new HarvestResource(00.0, 00.0, 100.0, "Voce encontrou minero de ferro e colocou em sua mochila", typeof(IronOre), typeof(Granite)),
+                new HarvestResource(65.0, 25.0, 105.0, "Voce encontrou minero de cobre rustico e colocou em sua mochila", typeof(DullCopperOre),	typeof(DullCopperGranite), typeof(DullCopperElemental)),
+                new HarvestResource(70.0, 30.0, 110.0, "Voce encontrou minero de onyx e colocou em sua mochila", typeof(ShadowIronOre),	typeof(ShadowIronGranite), typeof(ShadowIronElemental)),
+                new HarvestResource(75.0, 35.0, 115.0, "Voce encontrou minero de cobre e colocou em sua mochila", typeof(CopperOre), typeof(CopperGranite), typeof(CopperElemental)),
+                new HarvestResource(80.0, 40.0, 120.0, "Voce encontrou minero de bronze e colocou em sua mochila", typeof(BronzeOre), typeof(BronzeGranite), typeof(BronzeElemental)),
+                new HarvestResource(85.0, 45.0, 125.0, "Voce encontrou minero de ouro e colocou em sua mochila", typeof(GoldOre), typeof(GoldGranite), typeof(GoldenElemental)),
+                new HarvestResource(90.0, 50.0, 130.0, "Voce encontrou minero de agapite e colocou em sua mochila", typeof(AgapiteOre), typeof(AgapiteGranite), typeof(AgapiteElemental)),
+                new HarvestResource(95.0, 55.0, 135.0, "Voce encontrou minero de verite e colocou em sua mochila", typeof(VeriteOre), typeof(VeriteGranite), typeof(VeriteElemental)),
+                new HarvestResource(99.0, 59.0, 139.0, "Voce encontrou minero de valorite e colocou em sua mochila", typeof(ValoriteOre), typeof(ValoriteGranite), typeof(ValoriteElemental))
             };
 
             veins = new HarvestVein[]

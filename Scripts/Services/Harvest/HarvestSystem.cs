@@ -269,6 +269,30 @@ namespace Server.Engines.Harvest
                 def.SendMessageTo(from, def.FailMessage);
 
             OnHarvestFinished(from, tool, def, vein, bank, resource, toHarvest);
+
+            new HarvestRestart(from, tool, toHarvest, this).Start();
+        }
+
+        public class HarvestRestart : Timer
+        {
+            private object toHarvest;
+            private Item tool;
+            private Mobile from;
+            private HarvestSystem sys;
+
+            public HarvestRestart(Mobile from, Item tool, object toHarvest, HarvestSystem sys): base(TimeSpan.FromSeconds(1))
+            {
+                this.from = from;
+                this.tool = tool;
+                this.toHarvest = toHarvest;
+                this.sys = sys;
+            }
+
+            protected override void OnTick()
+            {
+                sys.StartHarvesting(from, tool, toHarvest);
+            }
+
         }
 
         public virtual bool CheckHarvestSkill(Map map, Point3D loc, Mobile from, HarvestResource resource, HarvestDefinition def)
@@ -447,6 +471,12 @@ namespace Server.Engines.Harvest
                 {
                     from.Animate(Utility.RandomList(def.EffectActions), 5, 1, true, false, 0);
                 }
+            } else
+            {
+                if(from.FindItemOnLayer(Layer.TwoHanded) == tool)
+                    from.Animate(AnimationType.Attack, 0);
+                else
+                    from.Animate(AnimationType.Attack, 3);
             }
         }
 

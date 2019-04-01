@@ -20,7 +20,7 @@ namespace Server.Mobiles
                 this.Body = 0x191; 
                 this.Name = NameList.RandomName("female");
                 this.AddItem(new FancyDress(Utility.RandomDyedHue())); 
-                this.Title = "the actress"; 
+                this.Title = "a atriz"; 
             }
             else 
             { 
@@ -28,7 +28,7 @@ namespace Server.Mobiles
                 this.Name = NameList.RandomName("male");
                 this.AddItem(new LongPants(Utility.RandomNeutralHue())); 
                 this.AddItem(new FancyShirt(Utility.RandomDyedHue()));
-                this.Title = "the actor";
+                this.Title = "o ator";
             }
 
             this.AddItem(new Boots(Utility.RandomNeutralHue()));

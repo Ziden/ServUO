@@ -17,7 +17,7 @@ namespace Server.Mobiles
 
         [Constructable]
         public Weaponsmith()
-            : base("the weaponsmith")
+            : base("o armeiro")
         {
             this.SetSkill(SkillName.ArmsLore, 64.0, 100.0);
             this.SetSkill(SkillName.Blacksmith, 65.0, 88.0);

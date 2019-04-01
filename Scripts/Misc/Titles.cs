@@ -46,21 +46,21 @@ namespace Server.Misc
             if (message)
             {
                 if (offset > 40)
-                    m.SendLocalizedMessage(1019054); // You have gained a lot of fame.
+                    m.SendMessage("Voce ganhou muuuuita fama"); // You have gained a lot of fame.
                 else if (offset > 20)
-                    m.SendLocalizedMessage(1019053); // You have gained a good amount of fame.
+                    m.SendMessage("Voce ganhou uma boa quantia de fama"); // You have gained a good amount of fame.
                 else if (offset > 10)
-                    m.SendLocalizedMessage(1019052); // You have gained some fame.
+                    m.SendMessage("Voce ganhou uma boa fama"); // You have gained some fame.
                 else if (offset > 0)
-                    m.SendLocalizedMessage(1019051); // You have gained a little fame.
+                    m.SendMessage("Voce ganhou um pouco de fama"); // You have gained a little fame.
                 else if (offset < -40)
-                    m.SendLocalizedMessage(1019058); // You have lost a lot of fame.
+                    m.SendMessage("Voce perdeu muuuuuita fama"); // You have lost a lot of fame.
                 else if (offset < -20)
-                    m.SendLocalizedMessage(1019057); // You have lost a good amount of fame.
+                    m.SendMessage("Voce perdeu uma boa quantia de fama"); // You have lost a good amount of fame.
                 else if (offset < -10)
-                    m.SendLocalizedMessage(1019056); // You have lost some fame.
+                    m.SendMessage("Voce perdeu um pouco de fama"); // You have lost some fame.
                 else if (offset < 0)
-                    m.SendLocalizedMessage(1019055); // You have lost a little fame.
+                    m.SendMessage("Voce perdeu um pouco de fama"); // You have lost a little fame.
             }
         }
 
@@ -126,21 +126,21 @@ namespace Server.Misc
             if (message)
             {
                 if (offset > 40)
-                    m.SendLocalizedMessage(1019062); // You have gained a lot of karma.
+                    m.SendMessage("Voce ganhou muuuuito karma"); // You have gained a lot of karma.
                 else if (offset > 20)
-                    m.SendLocalizedMessage(1019061); // You have gained a good amount of karma.
+                    m.SendMessage("Voce ganhou uma boa quantia de karma"); // You have gained a good amount of karma.
                 else if (offset > 10)
-                    m.SendLocalizedMessage(1019060); // You have gained some karma.
+                    m.SendMessage("Voce ganhou karma"); // You have gained some karma.
                 else if (offset > 0)
-                    m.SendLocalizedMessage(1019059); // You have gained a little karma.
+                    m.SendMessage("Voce ganhou um pouquinho de karma"); // You have gained a little karma.
                 else if (offset < -40)
-                    m.SendLocalizedMessage(1019066); // You have lost a lot of karma.
+                    m.SendMessage("Voce perdeu muuuuuito karma"); // You have lost a lot of karma.
                 else if (offset < -20)
-                    m.SendLocalizedMessage(1019065); // You have lost a good amount of karma.
+                    m.SendMessage("Voce perdeu uma boa quantidade de karma"); // You have lost a good amount of karma.
                 else if (offset < -10)
-                    m.SendLocalizedMessage(1019064); // You have lost some karma.
+                    m.SendMessage("Voce perdeu karma"); // You have lost some karma.
                 else if (offset < 0)
-                    m.SendLocalizedMessage(1019063); // You have lost a little karma.
+                    m.SendMessage("Voce perdeu um pouquinho de karma"); // You have lost a little karma.
             }
 
             if (!Core.AOS && wasPositiveKarma && m.Karma < 0 && m is PlayerMobile && !((PlayerMobile)m).KarmaLocked)

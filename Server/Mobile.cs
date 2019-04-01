@@ -5821,7 +5821,7 @@ namespace Server
 						Serial.MinusOne,
 						-1,
 						MessageType.Label,
-						0x3B2,
+						0x7B2,
 						3,
 						1008158,
 						"",
@@ -9531,7 +9531,7 @@ namespace Server
         /// </summary>
         public virtual void OnPoisonImmunity(Mobile from, Poison poison)
 		{
-			PublicOverheadMessage(MessageType.Emote, 0x3B2, 1005534); // * The poison seems to have no effect. *
+			PublicOverheadMessage(MessageType.Emote, 0x7B2, 1005534); // * The poison seems to have no effect. *
 		}
 
         /// <summary>
@@ -11920,7 +11920,7 @@ namespace Server
 			{
 				if (message)
 				{
-					LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019048); // I am dead and cannot do that.
+					LocalOverheadMessage(MessageType.Regular, 0x7B2, 1019048); // I am dead and cannot do that.
 				}
 
 				return false;
@@ -12193,12 +12193,12 @@ namespace Server
 
 		public void SendLocalizedMessage(int number, string args)
 		{
-			SendLocalizedMessage(number, args, 0x3B2);
+			SendLocalizedMessage(number, args, 0x7B2);
 		}
 
 		public void SendLocalizedMessage(int number, string args, int hue)
 		{
-			if (hue == 0x3B2 && (args == null || args.Length == 0))
+			if (false && hue == 0x3B2 && (args == null || args.Length == 0))
 			{
 				NetState ns = m_NetState;
 
@@ -12209,6 +12209,10 @@ namespace Server
 			}
 			else
 			{
+                if(hue == 0x3B2)
+                {
+                    hue = 0x7B2;
+                }
 				NetState ns = m_NetState;
 
 				if (ns != null)
@@ -12220,12 +12224,12 @@ namespace Server
 
 		public void SendLocalizedMessage(int number, bool append, string affix)
 		{
-			SendLocalizedMessage(number, append, affix, "", 0x3B2);
+			SendLocalizedMessage(number, append, affix, "", 0x7B2);
 		}
 
 		public void SendLocalizedMessage(int number, bool append, string affix, string args)
 		{
-			SendLocalizedMessage(number, append, affix, args, 0x3B2);
+			SendLocalizedMessage(number, append, affix, args, 0x7B2);
 		}
 
 		public void SendLocalizedMessage(int number, bool append, string affix, string args, int hue)
@@ -12264,12 +12268,12 @@ namespace Server
 
 		public void SendMessage(string text)
 		{
-			SendMessage(0x3B2, text);
+			SendAsciiMessage(0x7B2, text);
 		}
 
 		public void SendMessage(string format, params object[] args)
 		{
-			SendMessage(0x3B2, String.Format(format, args));
+            SendAsciiMessage(0x7B2, String.Format(format, args));
 		}
 
 		public void SendMessage(int hue, string text)
@@ -12294,12 +12298,12 @@ namespace Server
 
 		public void SendAsciiMessage(string text)
 		{
-			SendAsciiMessage(0x3B2, text);
+			SendAsciiMessage(0x7B2, text);
 		}
 
 		public void SendAsciiMessage(string format, params object[] args)
 		{
-			SendAsciiMessage(0x3B2, String.Format(format, args));
+			SendAsciiMessage(0x7B2, String.Format(format, args));
 		}
 
 		public void SendAsciiMessage(int hue, string text)

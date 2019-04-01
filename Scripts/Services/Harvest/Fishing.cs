@@ -76,16 +76,16 @@ namespace Server.Engines.Harvest
             fish.EffectDelay = TimeSpan.Zero;
             fish.EffectSoundDelay = TimeSpan.FromSeconds(8.0);
 
-            fish.NoResourcesMessage = 503172; // The fish don't seem to be biting here.
-            fish.FailMessage = 503171; // You fish a while, but fail to catch anything.
-            fish.TimedOutOfRangeMessage = 500976; // You need to be closer to the water to fish!
-            fish.OutOfRangeMessage = 500976; // You need to be closer to the water to fish!
-            fish.PackFullMessage = 503176; // You do not have room in your backpack for a fish.
-            fish.ToolBrokeMessage = 503174; // You broke your fishing pole.
+            fish.NoResourcesMessage = "Parecem nao estarem mordendo por aqui"; // The fish don't seem to be biting here.
+            fish.FailMessage = "Nao pegou nada"; // You fish a while, but fail to catch anything.
+            fish.TimedOutOfRangeMessage = "Voce precisa estar mais proximo a agua"; // You need to be closer to the water to fish!
+            fish.OutOfRangeMessage = "Voce precisa estar mais proximo a agua"; // You need to be closer to the water to fish!
+            fish.PackFullMessage = "Nao cabe mais peixe na sua mochila !"; // You do not have room in your backpack for a fish.
+            fish.ToolBrokeMessage = "Voce quebrou sua vara de pescar"; // You broke your fishing pole.
 
             res = new HarvestResource[]
             {
-                new HarvestResource(00.0, 00.0, 120.0, 1043297, typeof(Fish))
+                new HarvestResource(00.0, 00.0, 120.0, "Voce pescou um peixe", typeof(Fish))
             };
 
             veins = new HarvestVein[]
@@ -96,15 +96,12 @@ namespace Server.Engines.Harvest
             fish.Resources = res;
             fish.Veins = veins;
 
-            if (Core.ML)
+            fish.BonusResources = new BonusHarvestResource[]
             {
-                fish.BonusResources = new BonusHarvestResource[]
-                {
                     new BonusHarvestResource(0, 97.0, null, null), //set to same chance as mining ml gems
-			        new BonusHarvestResource(80.0, 2.0, 1113764, typeof(DelicateScales)),
-                	new BonusHarvestResource(80.0, 1.0, 1072597, typeof(WhitePearl))
-                };
-            }
+			        new BonusHarvestResource(80.0, 2.0, "Voce pescou escamas", typeof(DelicateScales)),
+                    new BonusHarvestResource(80.0, 1.0, "Voce pescou uma perola", typeof(WhitePearl))
+            };
 
             this.m_Definition = fish;
             this.Definitions.Add(fish);
@@ -113,7 +110,7 @@ namespace Server.Engines.Harvest
 
         public override void OnConcurrentHarvest(Mobile from, Item tool, HarvestDefinition def, object toHarvest)
         {
-            from.SendLocalizedMessage(500972); // You are already fishing.
+            from.SendMessage("Voce ja ta pescando"); // You are already fishing.
         }
 
         private class MutateEntry
@@ -133,28 +130,28 @@ namespace Server.Engines.Harvest
         }
 
         private static MutateEntry[] m_MutateTable = new MutateEntry[]
-		{
-			new MutateEntry( 80.0,  80.0,  1865.0,  true, typeof( SpecialFishingNet ) ),
-			new MutateEntry( 90.0,  80.0,  1875.0,  true, typeof( TreasureMap ) ),
-			new MutateEntry( 100.0,  80.0,  750.0,  true, typeof( MessageInABottle ) ),			
-			new MutateEntry( 80.0,  80.0,  4080.0,  true, typeof( BigFish ) ),
-			new MutateEntry( 0.0, 125.0, -2375.0, false, typeof( PrizedFish ), typeof( WondrousFish ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ),
-			new MutateEntry( 0.0, 125.0,  -420.0, false, typeof( Boots ), typeof( Shoes ), typeof( Sandals ), typeof( ThighBoots ) ),
+        {
+            new MutateEntry( 80.0,  80.0,  1865.0,  true, typeof( SpecialFishingNet ) ),
+            new MutateEntry( 90.0,  80.0,  1875.0,  true, typeof( TreasureMap ) ),
+            new MutateEntry( 100.0,  80.0,  750.0,  true, typeof( MessageInABottle ) ),
+            new MutateEntry( 80.0,  80.0,  4080.0,  true, typeof( BigFish ) ),
+            new MutateEntry( 0.0, 125.0, -2375.0, false, typeof( PrizedFish ), typeof( WondrousFish ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ),
+            new MutateEntry( 0.0, 125.0,  -420.0, false, typeof( Boots ), typeof( Shoes ), typeof( Sandals ), typeof( ThighBoots ) ),
             new MutateEntry( 80.0,  80.0, 2500.0, false, typeof( MudPuppy ), typeof( RedHerring) ),
-			new MutateEntry( 0.0, 200.0,  -200.0, false, new Type[1]{ null } )
-		};
+            new MutateEntry( 0.0, 200.0,  -200.0, false, new Type[1]{ null } )
+        };
 
         private static MutateEntry[] m_SiegeMutateTable = new MutateEntry[]
-		{
-			new MutateEntry( 80.0,  80.0,  1865.0,  true, typeof( SpecialFishingNet ) ),
+        {
+            new MutateEntry( 80.0,  80.0,  1865.0,  true, typeof( SpecialFishingNet ) ),
             new MutateEntry( 0.0, 200.0,  -200.0, false, new Type[1]{ null } ),
-			new MutateEntry( 100.0,  80.0,  1865.0,  true, typeof( MessageInABottle ) ),			
-			new MutateEntry( 80.0,  80.0,  4080.0,  true, typeof( BigFish ) ),
-			new MutateEntry( 0.0, 125.0, -2375.0, false, typeof( PrizedFish ), typeof( WondrousFish ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ),
-			new MutateEntry( 0.0, 105.0,  -420.0, false, typeof( Boots ), typeof( Shoes ), typeof( Sandals ), typeof( ThighBoots ) ),
+            new MutateEntry( 100.0,  80.0,  1865.0,  true, typeof( MessageInABottle ) ),
+            new MutateEntry( 80.0,  80.0,  4080.0,  true, typeof( BigFish ) ),
+            new MutateEntry( 0.0, 125.0, -2375.0, false, typeof( PrizedFish ), typeof( WondrousFish ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ),
+            new MutateEntry( 0.0, 105.0,  -420.0, false, typeof( Boots ), typeof( Shoes ), typeof( Sandals ), typeof( ThighBoots ) ),
             new MutateEntry( 80.0,  80.0, 2500.0, false, typeof( MudPuppy ), typeof( RedHerring) ),
-			new MutateEntry( 0.0, 200.0,  -200.0, false, new Type[1]{ null } )
-		};
+            new MutateEntry( 0.0, 200.0,  -200.0, false, new Type[1]{ null } )
+        };
 
         private static MutateEntry[] m_LavaMutateTable = new MutateEntry[]
         {
@@ -218,7 +215,7 @@ namespace Server.Engines.Harvest
                 }
 
                 #region High Seas Charydbis
-                if (Core.HS && tool is FishingPole && CharydbisSpawner.SpawnInstance != null && CharydbisSpawner.SpawnInstance.IsSummoned)
+                if (tool is FishingPole && CharydbisSpawner.SpawnInstance != null && CharydbisSpawner.SpawnInstance.IsSummoned)
                 {
                     Item oracle = from.Backpack.FindItemByType(typeof(OracleOfTheSea));
                     FishingPole pole = tool as FishingPole;
@@ -260,7 +257,7 @@ namespace Server.Engines.Harvest
                 return type;
 
             bool deepWater = IsDeepWater(loc, map);
-            bool junkproof = HasTypeHook(tool, HookType.JunkProof); 
+            bool junkproof = HasTypeHook(tool, HookType.JunkProof);
 
             double skillBase = from.Skills[SkillName.Fishing].Base;
             double skillValue = from.Skills[SkillName.Fishing].Value;
@@ -455,7 +452,7 @@ namespace Server.Engines.Harvest
                                         preLoot = new ShipwreckedItem(list[Utility.Random(3)], dredge);
                                     break;
                                 }
-                            #endregion
+                                #endregion
                         }
 
                         if (preLoot != null)
@@ -793,7 +790,7 @@ namespace Server.Engines.Harvest
             0x1F4, 0x1F5,
             0x1F6, 0x1F7,
 
-            4846, 4847, 4848, 4849, 4850, 
+            4846, 4847, 4848, 4849, 4850,
             4852, 4853, 4854, 4855, 4856, 4857, 4858, 4859, 4560, 4561, 4562,
             4864, 4865, 4866, 4867, 4868,
             4870, 4871, 4872, 4873, 4874,

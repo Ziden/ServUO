@@ -446,17 +446,20 @@ namespace Server.Items
         public IronOre()
             : this(1)
         {
+            this.Name = "Minerio de Ferro";
         }
 
         [Constructable]
         public IronOre(int amount)
             : base(CraftResource.Iron, amount)
         {
+            this.Name = "Minerio de Ferro";
         }
 
         public IronOre(bool fixedSize)
             : this(1)
         {
+            this.Name = "Minerio de Ferro";
             if (fixedSize)
                 ItemID = 0x19B8;
         }
@@ -464,6 +467,7 @@ namespace Server.Items
         public IronOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Ferro";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -494,17 +498,20 @@ namespace Server.Items
         public DullCopperOre()
             : this(1)
         {
+            this.Name = "Minerio de Cobre Rustico";
         }
 
         [Constructable]
         public DullCopperOre(int amount)
             : base(CraftResource.DullCopper, amount)
         {
+            this.Name = "Minerio de Cobre Rustico";
         }
 
         public DullCopperOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Cobre Rustico";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -535,17 +542,20 @@ namespace Server.Items
         public ShadowIronOre()
             : this(1)
         {
+            this.Name = "Minerio de Onyx";
         }
 
         [Constructable]
         public ShadowIronOre(int amount)
             : base(CraftResource.ShadowIron, amount)
         {
+            this.Name = "Minerio de Onyx";
         }
 
         public ShadowIronOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Onyx";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -576,17 +586,20 @@ namespace Server.Items
         public CopperOre()
             : this(1)
         {
+            this.Name = "Minerio de Cobre";
         }
 
         [Constructable]
         public CopperOre(int amount)
             : base(CraftResource.Copper, amount)
         {
+            this.Name = "Minerio de Cobre";
         }
 
         public CopperOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Cobre";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -617,17 +630,20 @@ namespace Server.Items
         public BronzeOre()
             : this(1)
         {
+            this.Name = "Minerio de Bronze";
         }
 
         [Constructable]
         public BronzeOre(int amount)
             : base(CraftResource.Bronze, amount)
         {
+            this.Name = "Minerio de Bronze";
         }
 
         public BronzeOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Bronze";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -658,17 +674,20 @@ namespace Server.Items
         public GoldOre()
             : this(1)
         {
+            this.Name = "Minerio de Ouro";
         }
 
         [Constructable]
         public GoldOre(int amount)
             : base(CraftResource.Gold, amount)
         {
+            this.Name = "Minerio de Ouro";
         }
 
         public GoldOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Ouro";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -699,17 +718,20 @@ namespace Server.Items
         public AgapiteOre()
             : this(1)
         {
+            this.Name = "Minerio de Agapite";
         }
 
         [Constructable]
         public AgapiteOre(int amount)
             : base(CraftResource.Agapite, amount)
         {
+            this.Name = "Minerio de Agapite";
         }
 
         public AgapiteOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Agapite";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -740,17 +762,20 @@ namespace Server.Items
         public VeriteOre()
             : this(1)
         {
+            this.Name = "Minerio de Verite";
         }
 
         [Constructable]
         public VeriteOre(int amount)
             : base(CraftResource.Verite, amount)
         {
+            this.Name = "Minerio de Verite";
         }
 
         public VeriteOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Verite";
         }
 
         public override void Serialize(GenericWriter writer)
@@ -781,17 +806,20 @@ namespace Server.Items
         public ValoriteOre()
             : this(1)
         {
+            this.Name = "Minerio de Valorite";
         }
 
         [Constructable]
         public ValoriteOre(int amount)
             : base(CraftResource.Valorite, amount)
         {
+            this.Name = "Minerio de Valorite";
         }
 
         public ValoriteOre(Serial serial)
             : base(serial)
         {
+            this.Name = "Minerio de Valorite";
         }
 
         public override void Serialize(GenericWriter writer)

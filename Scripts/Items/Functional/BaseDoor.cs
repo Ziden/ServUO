@@ -38,7 +38,7 @@ namespace Server.Items
             m_OpenedSound = openedSound;
             m_ClosedSound = closedSound;
             m_Offset = offset;
-
+            Name = "Porta";
             m_Timer = new InternalTimer(this);
 
             Movable = false;

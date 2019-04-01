@@ -16,6 +16,7 @@ namespace Server.Items
             : base(uses, 0xF39)
         {
             this.Weight = 5.0;
+            Name = "Pa";
         }
 
         public Shovel(Serial serial)

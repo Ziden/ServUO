@@ -89,7 +89,7 @@ namespace Server.Items
             }
 
             if (!(HarvestSystem is Mining))
-                from.SendLocalizedMessage(1010018); // What do you want to use this item on?
+                from.SendMessage("Aonde voce gostaria de usar isto ?"); // What do you want to use this item on?
 
             if (from.FindItemOnLayer(Layer.OneHanded) == this ||
                    from.FindItemOnLayer(Layer.TwoHanded) == this)

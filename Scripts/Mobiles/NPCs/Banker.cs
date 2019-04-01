@@ -19,8 +19,13 @@ namespace Server.Mobiles
 
         [Constructable]
         public Banker()
-            : base("the banker")
-        { }
+            : base("o banqueiro")
+        {
+            if(this.Female)
+            {
+                Title = "a banqueira";
+            }
+        }
 
         public Banker(Serial serial)
             : base(serial)

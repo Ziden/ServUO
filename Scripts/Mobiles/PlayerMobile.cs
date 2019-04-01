@@ -2293,11 +2293,11 @@ namespace Server.Mobiles
             {
                 if (isProtected)
                 {
-                    SendLocalizedMessage(500112); // You are now under the protection of the town guards.
+                    SendMessage("[Cidade] Voce entrou em uma zona protegida pela guarda."); // You are now under the protection of the town guards.
                 }
                 else
                 {
-                    SendLocalizedMessage(500113); // You have left the protection of the town guards.
+                    SendMessage("[Terras sem Dono] Voce entrou em terras sem dono e nao esta mais protegido"); // You have left the protection of the town guards.
                 }
 
                 m_LastProtectedMessage = isProtected;
@@ -2310,6 +2310,7 @@ namespace Server.Mobiles
 
             RecheckTownProtection();
         }
+
 
         public override void SetLocation(Point3D loc, bool isTeleport)
         {
@@ -3708,7 +3709,7 @@ namespace Server.Mobiles
             if (!Warmode)
             {
                 Timer.DelayCall(TimeSpan.FromSeconds(10), RecoverAmmo);
-            }
+            } 
         }
 
         private Mobile m_InsuranceAward;

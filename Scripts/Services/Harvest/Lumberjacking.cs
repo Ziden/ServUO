@@ -70,23 +70,23 @@ namespace Server.Engines.Harvest
             lumber.EffectDelay = TimeSpan.FromSeconds(1.6);
             lumber.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
 
-            lumber.NoResourcesMessage = 500493; // There's not enough wood here to harvest.
-            lumber.FailMessage = 500495; // You hack at the tree for a while, but fail to produce any useable wood.
-            lumber.OutOfRangeMessage = 500446; // That is too far away.
-            lumber.PackFullMessage = 500497; // You can't place any wood into your backpack!
-            lumber.ToolBrokeMessage = 500499; // You broke your axe.
+            lumber.NoResourcesMessage = "Nao tem mais madeira aqui"; // There's not enough wood here to harvest.
+            lumber.FailMessage = "Voce corta corta corta mas so consegue obter fiapos"; // You hack at the tree for a while, but fail to produce any useable wood.
+            lumber.OutOfRangeMessage = "Isto esta muito longe"; // That is too far away.
+            lumber.PackFullMessage = "Sua mochila ta cheia"; // You can't place any wood into your backpack!
+            lumber.ToolBrokeMessage = "Voce quebrou seu machado"; // You broke your axe.
 
-            if (Core.ML)
+            if (true)
             {
                 res = new HarvestResource[]
                 {
-                    new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)),
-                    new HarvestResource(65.0, 25.0, 105.0, 1072541, typeof(OakLog)),
-                    new HarvestResource(80.0, 40.0, 120.0, 1072542, typeof(AshLog)),
-                    new HarvestResource(95.0, 55.0, 135.0, 1072543, typeof(YewLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog)),
+                    new HarvestResource(00.0, 00.0, 100.0, "Voce colocou a madeira em sua mochila", typeof(Log)),
+                    new HarvestResource(65.0, 25.0, 105.0, "Voce colocou a madeira em sua mochila", typeof(OakLog)),
+                    new HarvestResource(80.0, 40.0, 120.0, "Voce colocou a madeira em sua mochila", typeof(AshLog)),
+                    new HarvestResource(95.0, 55.0, 135.0, "Voce colocou a madeira em sua mochila", typeof(YewLog)),
+                    new HarvestResource(100.0, 60.0, 140.0, "Voce colocou a madeira em sua mochila", typeof(HeartwoodLog)),
+                    new HarvestResource(100.0, 60.0, 140.0, "Voce colocou a madeira em sua mochila", typeof(BloodwoodLog)),
+                    new HarvestResource(100.0, 60.0, 140.0, "Voce colocou a madeira em sua mochila", typeof(FrostwoodLog)),
                 };
 
                 veins = new HarvestVein[]
@@ -103,12 +103,12 @@ namespace Server.Engines.Harvest
                 lumber.BonusResources = new BonusHarvestResource[]
                 {
                     new BonusHarvestResource(0, 82.0, null, null), //Nothing
-                    new BonusHarvestResource(100, 10.0, 1072548, typeof(BarkFragment)),
-                    new BonusHarvestResource(100, 03.0, 1072550, typeof(LuminescentFungi)),
-                    new BonusHarvestResource(100, 02.0, 1072547, typeof(SwitchItem)),
-                    new BonusHarvestResource(100, 01.0, 1072549, typeof(ParasiticPlant)),
-                    new BonusHarvestResource(100, 01.0, 1072551, typeof(BrilliantAmber)),
-                    new BonusHarvestResource(100, 01.0, 1113756, typeof(CrystalShards), Map.TerMur),
+                    new BonusHarvestResource(100, 10.0, "Voce encontrou algo no tronco da arvore", typeof(BarkFragment)),
+                    new BonusHarvestResource(100, 03.0, "Voce encontrou algo no tronco da arvore", typeof(LuminescentFungi)),
+                    new BonusHarvestResource(100, 02.0, "Voce encontrou algo no tronco da arvore", typeof(SwitchItem)),
+                    new BonusHarvestResource(100, 01.0, "Voce encontrou algo no tronco da arvore", typeof(ParasiticPlant)),
+                    new BonusHarvestResource(100, 01.0, "Voce encontrou algo no tronco da arvore", typeof(BrilliantAmber)),
+                    new BonusHarvestResource(100, 01.0, "Voce encontrou algo no tronco da arvore", typeof(CrystalShards), Map.TerMur),
                 };
             }
             else

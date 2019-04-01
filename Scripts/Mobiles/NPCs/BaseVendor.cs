@@ -305,7 +305,14 @@ namespace Server.Mobiles
 
 			LoadSBInfo();
 
-			Title = title;
+
+            if (title.StartsWith("o "))
+            {
+                var split = title.Split(' ');
+                title = "a "+ split[1].Remove(split[1].Length - 1, 1) + "a";
+            }
+
+            Title = title;
 
 			InitBody();
 			InitOutfit();

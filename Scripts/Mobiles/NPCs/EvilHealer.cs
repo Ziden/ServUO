@@ -7,7 +7,7 @@ namespace Server.Mobiles
         [Constructable]
         public EvilHealer()
         {
-            this.Title = "the healer";
+            this.Title = "o curandeiro maligno";
 
             this.Karma = -10000;
 

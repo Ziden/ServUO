@@ -26,12 +26,11 @@ namespace Server.Commands
         private static void OnCommandMusic(CommandEventArgs e)
         {
             e.Mobile.SendMessage("Tocando musiquinha :B");
-            var musicName = e.GetString(0);
+            var musicId = e.GetInt32(0);
 
             try
             {
-                var musicNameEnum = (MusicName)System.Enum.Parse(typeof(MusicName), musicName);
-                e.Mobile.NetState.Send(PlayMusic.GetInstance(musicNameEnum));
+                e.Mobile.NetState.Send(PlayMusic.GetInstance(musicId));
             } catch(Exception ex)
             {
                 e.Mobile.SendMessage("Achei a musica nao veih "+ ex.Message);
