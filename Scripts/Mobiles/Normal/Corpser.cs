@@ -10,7 +10,7 @@ namespace Server.Mobiles
         public Corpser()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a corpser";
+            this.Name = "uma planta devouradora de gente";
             this.Body = 8;
             this.BaseSoundID = 684;
 

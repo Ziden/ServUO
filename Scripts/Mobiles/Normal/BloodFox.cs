@@ -9,7 +9,7 @@ namespace Server.Mobiles
         [Constructable]
         public BloodFox() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "Blood Fox";
+            Name = "Raposa de Sangue";
             Body = 0x58f;
             Female = true;
 

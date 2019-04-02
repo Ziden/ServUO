@@ -11,9 +11,9 @@ namespace Server.Misc
 	{
 		private static readonly string[] m_Messages =
 		{
-			"Welcome to " + ServerList.ServerName + ".", //
-			"Please enjoy your stay!"
-		};
+            "Voce agora controla seu avatar", //
+			"Bem vindo ao mundo mistico :) "
+        };
 
 		private static readonly string[] m_TCMessages =
 		{

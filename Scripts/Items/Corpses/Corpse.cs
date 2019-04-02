@@ -460,6 +460,17 @@ namespace Server.Items
 
 		public static string GetCorpseName(Mobile m)
 		{
+            if(m is PlayerMobile)
+            {
+                return "restos mortais de " + m.Name;
+            } else if(m is BaseCreature)
+            {
+                if (m.Female)
+                    return m.Name + " morta";
+                return m.Name + " morto";
+            }
+
+            /*
 			XmlData x = (XmlData)XmlAttach.FindAttachment(m, typeof(XmlData), "CorpseName");
 
 			if (x != null)
@@ -490,7 +501,7 @@ namespace Server.Items
 					return attr.Name;
 				}
 			}
-
+            */
 			return null;
 		}
 

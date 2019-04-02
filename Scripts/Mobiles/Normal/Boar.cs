@@ -9,7 +9,7 @@ namespace Server.Mobiles
         public Boar()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a boar";
+            this.Name = "um javali";
             this.Body = 0x122;
             this.BaseSoundID = 0xC4;
 

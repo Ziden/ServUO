@@ -298,6 +298,27 @@ namespace Server.Mobiles
 			}
         }
 
+        public void UpdateTitle()
+        {
+            var title = Title;
+            Console.WriteLine("INI "+Female);
+            if (Female && title.StartsWith("o "))
+            {
+                var split = title.Split(' ');
+
+                var lastLetter = split[1][split[1].Length - 1];
+
+                Console.WriteLine("ULTIMA: "+lastLetter);
+                var secondPart = split[1];
+                if (lastLetter == 'o')
+                    secondPart = split[1].Remove(split[1].Length - 1, 1) + "a";
+                else if (lastLetter == 'r')
+                    secondPart = secondPart + "a";
+                title = "a " + secondPart;
+                Title = title;
+            }
+        }
+
 		public BaseVendor(string title)
 			: base(AIType.AI_Vendor, FightMode.None, 2, 1, 0.5, 5)
 		{
@@ -305,11 +326,7 @@ namespace Server.Mobiles
 
 			LoadSBInfo();
 
-            if (title.StartsWith("o "))
-            {
-                var split = title.Split(' ');
-                title = "a "+ split[1].Remove(split[1].Length - 1, 1) + "a";
-            }
+            Timer.DelayCall(TimeSpan.FromSeconds(1), a => UpdateTitle(), null);
 
             Title = title;
 
@@ -899,7 +916,14 @@ namespace Server.Mobiles
 
 		private static readonly TimeSpan InventoryDecayTime = TimeSpan.FromHours(1.0);
 
-		public virtual void VendorBuy(Mobile from)
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+            list.Add(" NPC ");
+        }
+
+
+        public virtual void VendorBuy(Mobile from)
 		{
 			if (!IsActiveSeller)
 			{

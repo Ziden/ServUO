@@ -99,11 +99,22 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
+
+            try
+            {
+                writer.Write(plantada);
+            } catch (Exception e) { }
         }
 
         public override void Deserialize(GenericReader reader)
         {
-            base.Deserialize(reader);  
+            base.Deserialize(reader);
+
+            try
+            {
+                plantada = reader.ReadBool();
+            }  catch (Exception e) { }
+  
         }
 
         public class GrowTimer : Timer

@@ -10,7 +10,7 @@ namespace Server.Mobiles
         public BlackBear()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a black bear";
+            this.Name = "um urso negro";
             this.Body = 211;
             this.BaseSoundID = 0xA3;
 
