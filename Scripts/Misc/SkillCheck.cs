@@ -181,7 +181,7 @@ namespace Server.Misc
 
         private static List<string> HardSkills = new List<string>() {
               "Blacksmithy", "Bowcraft/Fletching", "Alchemy", "Animal Taming", "Cooking", "Herding", "Inscription", "Tinkering",
-              "Tailoring", "Mining", "Lumberjacking", "Carpentry"
+              "Tailoring", "Mining", "Lumberjacking", "Carpentry", "Poisoning", ""
         };
 
         public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)

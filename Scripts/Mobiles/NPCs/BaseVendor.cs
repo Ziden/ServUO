@@ -305,7 +305,6 @@ namespace Server.Mobiles
 
 			LoadSBInfo();
 
-
             if (title.StartsWith("o "))
             {
                 var split = title.Split(' ');

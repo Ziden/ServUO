@@ -7,6 +7,8 @@ namespace Server.Items
     public abstract class BasePlantable : Item
     {
 
+        private bool plantada = false;
+
         public BasePlantable(int itemID)
             : base(itemID)
         {
@@ -22,7 +24,20 @@ namespace Server.Items
             return 30;
         }
 
-        public BasePlantable(Serial serial)
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+
+            if(plantada)
+            {
+                if (ItemID == 3254)
+                    list.Add("Crescendo");
+                else
+                    list.Add("Germinando");
+            }
+        }
+
+            public BasePlantable(Serial serial)
             : base(serial)
         {
         }
@@ -62,6 +77,8 @@ namespace Server.Items
                         toPlant.Movable = false;
                         new GrowTimer(toPlant, from.Name).Start();
                         Effects.PlaySound(target.Location, from.Map, 0x12E);
+                        toPlant.plantada = true;
+                        toPlant.InvalidateProperties();
                     }
                     else
                     {
@@ -97,7 +114,7 @@ namespace Server.Items
 
             private int count;
 
-            public GrowTimer(BasePlantable plantable, string plantador) : base(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10), 2)
+            public GrowTimer(BasePlantable plantable, string plantador) : base(TimeSpan.FromHours(2), TimeSpan.FromHours(4), 2)
             {
                 this.plantable = plantable;
                 this.plantador = plantador;
@@ -107,6 +124,7 @@ namespace Server.Items
             protected override void OnTick()
             {
                 count++;
+                plantable.InvalidateProperties();
                 if (count == 1)
                 {
                     plantable.ItemID = 3254; // matinho q ta crescendo

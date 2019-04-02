@@ -131,6 +131,21 @@ namespace Server.Mobiles
             Instances = new List<PlayerMobile>(0x1000);
         }
 
+        public void HarvestAnimation(int emote = 1)
+        {
+            if(Mounted)
+            {
+                var twoHand = FindItemOnLayer(Layer.TwoHanded);
+                if (twoHand != null && twoHand is BaseWeapon)
+                    Animate(AnimationType.Attack, 0);
+                else
+                    Animate(AnimationType.Attack, 3);
+            } else
+            {
+                Animate(AnimationType.Emote, emote);
+            }
+        }
+
         public string CampfireLocations = "";
 
         #region Mount Blocking

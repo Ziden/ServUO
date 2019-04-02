@@ -165,7 +165,7 @@ namespace Server.Gumps
                 if(!discobertas.Contains(loc.Name))
                 {
                     var distancia = from.GetDistanceToSqrt(loc.Location);
-                    if(distancia < 2000)
+                    if(distancia < 600)
                     {
                         if(distancia < menorDist)
                         {

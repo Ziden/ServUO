@@ -119,11 +119,11 @@ namespace Server.Targets
 
                 if (!system.GetHarvestDetails(from, m_Item, targeted, out tileID, out map, out loc))
                 {
-                    from.SendLocalizedMessage(500494); // You can't use a bladed item on that!
+                    from.SendMessage("Voce nao pode cortar nada ali"); // You can't use a bladed item on that!
                 }
                 else if (!def.Validate(tileID))
                 {
-                    from.SendLocalizedMessage(500494); // You can't use a bladed item on that!
+                    from.SendMessage("Voce nao pode cortar nada ali"); // You can't use a bladed item on that!
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace Server.Targets
 
                     if (bank.Current < 5)
                     {
-                        from.SendLocalizedMessage(500493); // There's not enough wood here to harvest.
+                        from.SendMessage("Nao tem madeira suficiente aqui"); // There's not enough wood here to harvest.
                     }
                     else
                     {
@@ -144,12 +144,11 @@ namespace Server.Targets
 
                         if (from.PlaceInBackpack(item))
                         {
-                            from.SendLocalizedMessage(500491); // You put some kindling into your backpack.
-                            from.SendLocalizedMessage(500492); // An axe would probably get you more wood.
+                            from.SendMessage("Voce colocou alguns galhos secos em sua mochila"); // You put some kindling into your backpack.
                         }
                         else
                         {
-                            from.SendLocalizedMessage(500490); // You can't place any kindling into your backpack!
+                            from.SendMessage("Nao cabe mais em sua mochila") ; // You can't place any kindling into your backpack!
 
                             item.Delete();
                         }

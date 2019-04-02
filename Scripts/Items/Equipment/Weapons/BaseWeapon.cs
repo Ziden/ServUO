@@ -3345,7 +3345,7 @@ namespace Server.Items
 			var m = defender.Map;
 			var b = new Rectangle2D(defender.X - 2, defender.Y - 2, 5, 5);
 
-			var count = Core.AOS ? Utility.RandomMinMax(2, 3) : Utility.RandomMinMax(1, 2);
+            var count = Utility.RandomMinMax(2, 3);
 
 			for (var i = 0; i < count; i++)
 			{
